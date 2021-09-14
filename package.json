@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "webpack serve",
+    "start": "webpack serve --open",
+    "watch": "webpack --watch",
     "build": "webpack"
   },
   "repository": {
@@ -20,6 +21,9 @@
   },
   "homepage": "https://github.com/NightShop/personalWebToolV2#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-loader": "^8.2.2",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.2.1"
