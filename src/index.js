@@ -1,3 +1,7 @@
+import { render } from "react-dom";
+import App from "./components/App";
+import "./styles/index.css";
+
 console.log("tesssat");
 
 const array = [1,2,3,4]
@@ -16,3 +20,7 @@ const objectTwo = {
 }
 
 console.log(objectTwo)
+
+render(
+    <App/>,
+document.getElementById("root"));
