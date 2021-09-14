@@ -1,5 +1,9 @@
 h1 {
-    color: black;
-
+    color: green;
 }
 
+body {
+background-image: url("../assets/8bitphoto_svetlo_modro.jpg");
+background-repeat: no-repeat;
+background-size: 50px;
+}
