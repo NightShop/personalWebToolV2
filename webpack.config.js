@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 module.exports = {
-    mode: mode,
+    mode,
 
     output: {
         assetModuleFilename: "images/[hash][ext][query]",
@@ -20,20 +20,20 @@ module.exports = {
         rules: [
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
-                type: "asset"
+                type: "asset",
             },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use : {
+                use: {
                     loader: "babel-loader",
-                }
+                },
             },
             {
                 test: /\.css$/,
-                use : [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
-            }
-        ]
+                use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+            },
+        ],
     },
 
     plugins: [
@@ -42,12 +42,12 @@ module.exports = {
             template: "./src/index.html",
         }),
     ],
-    
     devtool: "source-map",
+
     devServer: {
         static: path.resolve(__dirname, "dist"),
     },
     resolve: {
         extensions: [".js", ".jsx"],
-    }
+    },
 };
