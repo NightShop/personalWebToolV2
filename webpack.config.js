@@ -41,8 +41,11 @@ module.exports = {
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
-                        options: {publicPath: ""},
-                    }, "css-loader", "postcss-loader"],
+                        options: { publicPath: "" },
+                    },
+                    "css-loader",
+                    "postcss-loader",
+                ],
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
@@ -53,6 +56,9 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
+                    options: {
+                        cacheDirectory: true,
+                    },
                 },
             },
         ],
@@ -63,6 +69,7 @@ module.exports = {
 
     devServer: {
         static: path.resolve(__dirname, "dist"),
+        hot: true,
     },
     resolve: {
         extensions: [".js", ".jsx"],
