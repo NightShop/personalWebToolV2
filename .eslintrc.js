@@ -26,5 +26,6 @@ module.exports = {
     "react/react-in-jsx-scope": ["off"],
     "no-console": ["off"],
     "react/jsx-filename-extension": "off",
+    "arrow-body-style": 1,
   },
 };
