@@ -3,7 +3,7 @@ import BlogMain from "./Blog/BlogMain";
 import ToolsMain from "./ToolsMain";
 
 const EntryNavigation = (props) => {
-    const activeSectionSetter = props.onClick;
+    const { activeSectionSetter } = props;
 
     return (
         <div className="entrYnavigation">
@@ -23,7 +23,7 @@ const App = () => {
         <div>
             {activeSection === "tools" ? <ToolsMain /> : null}
             {activeSection === "blog" ? <BlogMain /> : null}
-            {activeSection === "" ? <EntryNavigation onClick={changeActiveSection} /> : null}
+            {activeSection === "" ? <EntryNavigation activeSectionSetter={changeActiveSection} /> : null}
         </div>
     );
 };

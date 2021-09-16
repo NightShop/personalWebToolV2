@@ -27,5 +27,7 @@ module.exports = {
     "no-console": ["off"],
     "react/jsx-filename-extension": "off",
     "arrow-body-style": 1,
+    "react/prop-types": 0,
+    "max-len": [2, { code: 150 }],
   },
 };
