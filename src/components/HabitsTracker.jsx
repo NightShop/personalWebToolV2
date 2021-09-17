@@ -27,8 +27,8 @@ const HabitsTracker = () => {
     return (
         <div>
             <h1>HabitsTracker!!!</h1>
-            {activeSection === "habitsEdit" ? <HabitsEdit habitsInfo={habitsInfo} /> : null}
-            {activeSection === "habitsCalendar" ? <HabitsCalendar habitsCalendarInfo={habitsCalendarInfo} /> : null}
+            {activeSection === "habitsEdit" ? <HabitsEdit closeHabitsEdit={() => setActiveSection("")} habitsInfo={habitsInfo} /> : null}
+            {activeSection === "habitsCalendar" ? <HabitsCalendar closeHabitsCalendar={() => setActiveSection("")} habitsCalendarInfo={habitsCalendarInfo} /> : null}
             <button type="button" onClick={() => setActiveSection("habitsEdit")}>Edit Habits</button>
             <button type="button" onClick={() => setActiveSection("habitsCalendar")}>Calendar</button>
         </div>

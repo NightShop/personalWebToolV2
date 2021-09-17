@@ -5,8 +5,8 @@ const HabitsInfoRow = (props) => {
         <tr>
             <td>{habitInfo[0]}</td>
             <td>{habitInfo[1]}</td>
-            <td><a href="/">delete</a></td>
-            <td><a href="/">update</a></td>
+            <td><button type="button">update</button></td>
+            <td><button type="button">delete</button></td>
         </tr>
     );
 };

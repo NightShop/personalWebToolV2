@@ -1,13 +1,44 @@
-const HabitAddPopup = () => {
+import { useState } from "react";
+
+const HabitAddPopup = (props) => {
+    const { closePopup } = props;
+
+    const [habitName, setHabitName] = useState("");
+    const [habitPoints, setHabitPoints] = useState("");
+
+    const handleSubmit = (event) => {
+        console.log(`Habit name: ${habitName}, points: ${habitPoints}`);
+        setHabitName("");
+        setHabitPoints("");
+        closePopup();
+        event.preventDefault();
+    };
+
     return (
         <div style={{
             width: "300px",
             height: "300px",
             position: "fixed",
             display: "block",
-            border: "solid 2px black",
+            border: "solid 1px white",
+            backgroundColor: "gray",
+            left: "35vw",
+            top: "10vw",
+            boxShadow: "rgba(0, 0, 0, 0.9) 0px 5px 15px",
         }}>
-            <p>habitaddpopup</p>
+            <h3>Add Habit</h3>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Habit title:
+                    <input type="text" value={habitName} onChange={(event) => setHabitName(event.target.value)} />
+                </label>
+                <label>
+                    Points:
+                    <input type="number" value={habitPoints} onChange={(event) => setHabitPoints(event.target.value)} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+            <button type="button" onClick={closePopup}>Back</button>
         </div>
     );
 };

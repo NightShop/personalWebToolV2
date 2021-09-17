@@ -4,7 +4,7 @@ import HabitsInfoRow from "./HabitsInfoRow";
 import HabitAddPopup from "./HabitAddPopup";
 
 const HabitsEdit = (props) => {
-    const { habitsInfo } = props;
+    const { habitsInfo, closeHabitsEdit } = props;
     const [addHabitPopupOpened, setAddHabitPopupOpened] = useState(false);
 
     return (
@@ -16,7 +16,8 @@ const HabitsEdit = (props) => {
                 </tbody>
             </table>
             <button type="button" onClick={() => setAddHabitPopupOpened(!addHabitPopupOpened)}>Add new habit</button>
-            {addHabitPopupOpened && <HabitAddPopup /> }
+            {addHabitPopupOpened && <HabitAddPopup closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)} /> }
+            <button type="button" onClick={closeHabitsEdit}>Back</button>
         </div>
     );
 };

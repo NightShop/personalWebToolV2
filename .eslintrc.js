@@ -29,5 +29,6 @@ module.exports = {
     "arrow-body-style": 1,
     "react/prop-types": 0,
     "max-len": [2, { code: 150 }],
+    "jsx-a11y/label-has-associated-control": [2, { assert: "either" }],
   },
 };
