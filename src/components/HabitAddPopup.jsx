@@ -25,7 +25,8 @@ const HabitAddPopup = (props) => {
             left: "35vw",
             top: "10vw",
             boxShadow: "rgba(0, 0, 0, 0.9) 0px 5px 15px",
-        }}>
+        }}
+        >
             <h3>Add Habit</h3>
             <form onSubmit={handleSubmit}>
                 <label>

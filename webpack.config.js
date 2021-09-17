@@ -11,7 +11,7 @@ const pluginsArr = [
     }),
 ];
 
-let devToolsConfig = "";
+let devToolsConfig = null;
 
 if (process.env.NODE_ENV === "production") {
     mode = "production";
