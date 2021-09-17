@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 import BlogMain from "./Blog/BlogMain";
 import ToolsMain from "./ToolsMain";
@@ -21,29 +20,13 @@ const firebaseConfig = {
 
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore();
+initializeApp(firebaseConfig);
 
 const App = () => {
     const [activeSection, setActiveSection] = useState("");
     const changeActiveSection = (section) => {
         setActiveSection(section);
     };
-    const testOne = async () => {
-    try {
-        const docRef = await addDoc(collection(db, "users"), {
-          first: "Ada",
-          last: "Lovelace",
-          born: 1815,
-        });
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-    };
-
-    testOne();
-
 
     return (
         <div>

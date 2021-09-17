@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
 
 const HabitAddPopup = (props) => {
     const { closePopup } = props;
@@ -6,12 +7,19 @@ const HabitAddPopup = (props) => {
     const [habitName, setHabitName] = useState("");
     const [habitPoints, setHabitPoints] = useState("");
 
-    const handleSubmit = (event) => {
+    const db = getFirestore();
+
+    const handleSubmit = async (event) => {
         console.log(`Habit name: ${habitName}, points: ${habitPoints}`);
         setHabitName("");
         setHabitPoints("");
         closePopup();
         event.preventDefault();
+        const docRef = await addDoc(collection(db, "users"), {
+                habit: habitName,
+                points: habitPoints,
+            });
+            console.log("document written with id: ", docRef.id);
     };
 
     return (
