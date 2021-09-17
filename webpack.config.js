@@ -11,12 +11,8 @@ const pluginsArr = [
     }),
 ];
 
-let devToolsConfig = null;
-
 if (process.env.NODE_ENV === "production") {
     mode = "production";
-} else {
-    devToolsConfig = "source-map";
 }
 
 if (process.env.SERVE) {
@@ -65,7 +61,8 @@ module.exports = {
     },
 
     plugins: pluginsArr,
-    devtool: devToolsConfig,
+
+    devtool: "source-map",
 
     devServer: {
         static: path.resolve(__dirname, "dist"),
