@@ -14,12 +14,12 @@ const HabitAddPopup = (props) => {
         setHabitName("");
         setHabitPoints("");
         closePopup();
-        event.preventDefault();
         const docRef = await addDoc(collection(db, "users"), {
-                habit: habitName,
-                points: habitPoints,
-            });
-            console.log("document written with id: ", docRef.id);
+            habit: habitName,
+            points: habitPoints,
+        });
+        console.log("document written with id: ", docRef.id);
+        event.preventDefault();
     };
 
     return (

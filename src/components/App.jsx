@@ -20,7 +20,8 @@ const firebaseConfig = {
 
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+console.log("app initialized: ", app);
 
 const App = () => {
     const [activeSection, setActiveSection] = useState("");
