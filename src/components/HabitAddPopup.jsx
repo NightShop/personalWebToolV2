@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {doc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 
 const HabitAddPopup = (props) => {
     const { closePopup } = props;
@@ -15,7 +15,11 @@ const HabitAddPopup = (props) => {
         setHabitPoints("");
         closePopup();
 
-        await setDoc(doc(db, "users", props.userId));
+        await setDoc(doc(db, "users", props.userId), {
+            habits: {
+                [habitName]: habitPoints,
+            },
+        }, { merge: true });
 
         console.log("document written with id: ", props.userId);
         event.preventDefault();

@@ -10,7 +10,8 @@ const SignIn = (props) => {
         signInWithEmailAndPassword(auth, loginEmail, loginPassword)
             .then((userCredential) => {
                 // Signed in
-                const { user } = userCredential.user;
+                const { user } = userCredential;
+                console.log(user);
                 props.setUser(user);
                 // ...
             })
