@@ -1,28 +1,37 @@
-import { useState } from "react";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { doc, getFirestore, setDoc, deleteField } from "firebase/firestore";
 
 const HabitAddPopup = (props) => {
-    const { closePopup } = props;
+    const { closePopup, habitToModify, habitToModifyPoints, resetTemp } = props;
 
-    const [habitName, setHabitName] = useState("");
-    const [habitPoints, setHabitPoints] = useState("");
+    const [habitName, setHabitName] = useState(habitToModify);
+    const [habitPoints, setHabitPoints] = useState(habitToModifyPoints);
 
     const db = getFirestore();
 
     const handleSubmit = async (event) => {
+        event.preventDefault();
         console.log(`Habit name: ${habitName}, points: ${habitPoints}`);
+        if (habitToModify) {
+            await setDoc(doc(db, "users", props.userId), {
+                habits: {
+                    [habitName]: habitPoints,
+                    [habitToModify]: deleteField(),
+                },
+            }, { merge: true });
+        } else {
+            await setDoc(doc(db, "users", props.userId), {
+                habits: {
+                    [habitName]: habitPoints,
+                },
+            }, { merge: true });
+        }
+
         setHabitName("");
         setHabitPoints("");
-        closePopup();
-
-        await setDoc(doc(db, "users", props.userId), {
-            habits: {
-                [habitName]: habitPoints,
-            },
-        }, { merge: true });
-
+        resetTemp();
         console.log("document written with id: ", props.userId);
-        event.preventDefault();
+        closePopup();
     };
 
     return (

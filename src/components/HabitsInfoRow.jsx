@@ -1,12 +1,13 @@
 const HabitsInfoRow = (props) => {
-    const { habitInfo } = props;
+    const { habitInfo, openPopup, deleteHabit } = props;
     console.log(habitInfo);
+
     return (
         <tr>
             <td>{habitInfo[0]}</td>
             <td>{habitInfo[1]}</td>
-            <td><button type="button">update</button></td>
-            <td><button type="button">delete</button></td>
+            <td><button type="button" onClick={() => openPopup(habitInfo[0], habitInfo[1])}>update</button></td>
+            <td><button type="button" onClick={() => deleteHabit(habitInfo[0])}>delete</button></td>
         </tr>
     );
 };

@@ -11,8 +11,7 @@ const SignUp = (props) => {
             .then((userCredential) => {
                 // Signed in
                 const { user } = userCredential;
-                props.setUser(user);
-                // ...
+                console.log(user);
             })
             .catch((error) => {
                 const errorCode = error.code;

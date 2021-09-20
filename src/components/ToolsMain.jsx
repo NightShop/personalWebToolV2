@@ -7,8 +7,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
 const ToolsMain = () => {
-    const [activeSection, setActiveSection] = useState("");/* 
-    const [user, setUser] = useState(""); */
+    const [activeSection, setActiveSection] = useState("");
     const [showSignUp, setShowSignUp] = useState(false);
     const [showSignIn, setShowSignIn] = useState(false);
 
@@ -20,7 +19,7 @@ const ToolsMain = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
                 /* const token = credential.accessToken; */
                 console.log(result.user);
             }).catch((error) => {
@@ -28,10 +27,10 @@ const ToolsMain = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 // The email of the user's account used.
-                const email = error.email;
+                const emailError = error.email;
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
-                console.log("sign in google auth erro:", errorCode, errorMessage, email, credential);
+                console.log("sign in google auth erro:", errorCode, errorMessage, emailError, credential);
             });
     };
 
@@ -46,20 +45,23 @@ const ToolsMain = () => {
     return (
         <div>
             <h1>Welcome to the tools</h1>
-            <h3>{user.uid}</h3>
+            <h3>{user && user.uid}</h3>
             <button type="button" onClick={signInGoogleButton}>Sign in with google</button>
             <button type="button" onClick={() => setShowSignUp(!showSignUp)}>Sign up with email</button>
             <button type="button" onClick={() => setShowSignIn(!showSignIn)}>Sign in with email</button>
-            {showSignUp && <SignUp setUser={setUser} setShowSignUp={setShowSignUp} />}
-            {showSignIn && <SignIn setUser={setUser} setShowSignIn={setShowSignIn} />}
-            <div>
-                <nav>
-                    <button type="button" onClick={() => setActiveSection("gratefulnessDiary")}>Gratefulnes</button>
-                    <button type="button" onClick={() => setActiveSection("habitsTracker")}>Habits Tracker</button>
-                </nav>
-                {(activeSection === "habitsTracker") ? <HabitsTracker userId={user.uid} /> : null}
-                {(activeSection === "gratefulnessDiary") ? <GratefulnessDiary /> : null}
-            </div>
+            {showSignUp && <SignUp setShowSignUp={setShowSignUp} />}
+            {showSignIn && <SignIn setShowSignIn={setShowSignIn} />}
+            {user && <button type="button" onClick={() => auth.signOut()}>Sign Out</button>}
+            {user && (
+                <div>
+                    <nav>
+                        <button type="button" onClick={() => setActiveSection("gratefulnessDiary")}>Gratefulnes</button>
+                        <button type="button" onClick={() => setActiveSection("habitsTracker")}>Habits Tracker</button>
+                    </nav>
+                    {((activeSection === "habitsTracker")) ? <HabitsTracker userId={user.uid} /> : null}
+                    {((activeSection === "gratefulnessDiary")) ? <GratefulnessDiary /> : null}
+                </div>
+            )}
         </div>
     );
 };

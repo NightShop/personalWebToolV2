@@ -6,13 +6,13 @@ const SignIn = (props) => {
     const [loginPassword, setLoginPassword] = useState("");
 
     const auth = getAuth();
+
     const createNewUser = (event) => {
         signInWithEmailAndPassword(auth, loginEmail, loginPassword)
             .then((userCredential) => {
                 // Signed in
                 const { user } = userCredential;
                 console.log(user);
-                props.setUser(user);
                 // ...
             })
             .catch((error) => {
