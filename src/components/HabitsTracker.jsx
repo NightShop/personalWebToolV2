@@ -2,7 +2,7 @@ import { useState } from "react";
 import HabitsEdit from "./HabitsEdit";
 import HabitsCalendar from "./HabitsCalendar";
 
-const HabitsTracker = () => {
+const HabitsTracker = (props) => {
     const [activeSection, setActiveSection] = useState("");
 
     const habitsInfo = {
@@ -27,7 +27,7 @@ const HabitsTracker = () => {
     return (
         <div>
             <h1>HabitsTracker!!!</h1>
-            {activeSection === "habitsEdit" ? <HabitsEdit closeHabitsEdit={() => setActiveSection("")} habitsInfo={habitsInfo} /> : null}
+            {activeSection === "habitsEdit" ? <HabitsEdit userId={props.userId} closeHabitsEdit={() => setActiveSection("")} habitsInfo={habitsInfo} /> : null}
             {activeSection === "habitsCalendar"
             ? <HabitsCalendar closeHabitsCalendar={() => setActiveSection("")} habitsCalendarInfo={habitsCalendarInfo} />
             : null}

@@ -1,16 +1,16 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 
-const SignUp = (props) => {
+const SignIn = (props) => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
     const auth = getAuth();
     const createNewUser = (event) => {
-        createUserWithEmailAndPassword(auth, loginEmail, loginPassword)
+        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
             .then((userCredential) => {
                 // Signed in
-                const { user } = userCredential;
+                const { user } = userCredential.user;
                 props.setUser(user);
                 // ...
             })
@@ -20,14 +20,15 @@ const SignUp = (props) => {
                 console.log("error: ", errorCode);
                 console.log("msg: ", errorMessage);
             });
-        props.setShowSignUp(false);
+
+        props.setShowSignIn(false);
         event.preventDefault();
     };
 
     return (
         <div>
             <form onSubmit={(event) => createNewUser(event)}>
-                <h3>Sign Up</h3>
+                <h3>Login</h3>
                 <label>
                     email:
                     <input type="email" value={loginEmail} onChange={(event) => setLoginEmail(event.target.value)} />
@@ -42,4 +43,4 @@ const SignUp = (props) => {
     );
 };
 
-export default SignUp;
+export default SignIn;

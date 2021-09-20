@@ -9,6 +9,7 @@ const HabitsEdit = (props) => {
 
     return (
         <div>
+            <h1>user: {props.userId}</h1>
             <table>
                 <HabitsInfoHeader />
                 <tbody>
@@ -16,7 +17,7 @@ const HabitsEdit = (props) => {
                 </tbody>
             </table>
             <button type="button" onClick={() => setAddHabitPopupOpened(!addHabitPopupOpened)}>Add new habit</button>
-            {addHabitPopupOpened && <HabitAddPopup closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)} /> }
+            {addHabitPopupOpened && <HabitAddPopup userId={props.userId} closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)} /> }
             <button type="button" onClick={closeHabitsEdit}>Back</button>
         </div>
     );
