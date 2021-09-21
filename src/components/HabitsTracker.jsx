@@ -24,7 +24,7 @@ const HabitsTracker = (props) => {
             {activeSection === "habitsEdit"
             ? <HabitsEdit userId={userId} closeHabitsEdit={() => setActiveSection("")} /> : null}
             {activeSection === "habitsCalendar"
-            ? <HabitsCalendar closeHabitsCalendar={() => setActiveSection("")} habitsCalendarInfo={habitsCalendarInfo} />
+            ? <HabitsCalendar userId={userId} closeHabitsCalendar={() => setActiveSection("")} habitsCalendarInfo={habitsCalendarInfo} />
             : null}
             <button type="button" onClick={() => setActiveSection("habitsEdit")}>Edit Habits</button>
             <button type="button" onClick={() => setActiveSection("habitsCalendar")}>Calendar</button>

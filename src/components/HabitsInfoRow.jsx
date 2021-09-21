@@ -1,6 +1,5 @@
 const HabitsInfoRow = (props) => {
     const { habitInfo, openPopup, deleteHabit } = props;
-    console.log(habitInfo);
 
     return (
         <tr>

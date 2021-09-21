@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
-import { doc, getFirestore, setDoc, deleteField } from "firebase/firestore";
+import { useState } from "react";
+import {
+    doc, getFirestore, setDoc, deleteField,
+} from "firebase/firestore";
 
 const HabitAddPopup = (props) => {
-    const { closePopup, habitToModify, habitToModifyPoints, resetTemp } = props;
+    const {
+        closePopup, habitToModify, habitToModifyPoints, resetTemp,
+    } = props;
 
     const [habitName, setHabitName] = useState(habitToModify);
     const [habitPoints, setHabitPoints] = useState(habitToModifyPoints);
@@ -12,7 +16,8 @@ const HabitAddPopup = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(`Habit name: ${habitName}, points: ${habitPoints}`);
-        if (habitToModify) {
+        console.log(`Habit to modify: ${habitToModify}`);
+        if (habitToModify && (habitToModify !== habitName)) {
             await setDoc(doc(db, "users", props.userId), {
                 habits: {
                     [habitName]: habitPoints,

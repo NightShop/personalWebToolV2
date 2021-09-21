@@ -1,8 +1,10 @@
 const HabitsInfoHeader = () => (
     <thead>
-        <th>Habit</th>
-        <th>Points</th>
+        <tr>
+            <th>Habit</th>
+            <th>Points</th>
+        </tr>
     </thead>
-        );
+);
 
 export default HabitsInfoHeader;

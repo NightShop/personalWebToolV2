@@ -30,7 +30,7 @@ const ToolsMain = () => {
                 const emailError = error.email;
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
-                console.log("sign in google auth erro:", errorCode, errorMessage, emailError, credential);
+                console.log("sign in google auth error:", errorCode, errorMessage, emailError, credential);
             });
     };
 

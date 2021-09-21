@@ -4,7 +4,6 @@ import HabitCalendarCell from "./HabitCalendarCell";
 
 const HabitCalendarRow = (props) => {
     const { habitDayDate, habitsAndPoints } = props;
-    console.log(habitsAndPoints);
     return (
         <tr>
             <td>{habitDayDate}</td>
