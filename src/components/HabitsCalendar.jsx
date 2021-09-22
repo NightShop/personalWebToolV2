@@ -1,5 +1,4 @@
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { useCollection, useDocument } from "react-firebase-hooks/firestore";
+import { getFirestore, doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import HabitCalendarRow from "./HabitCalendarRow";
 
@@ -17,6 +16,18 @@ const HabitsCalendar = (props) => {
         };
         getData();
     }, [userId]);
+
+    useEffect(() => {
+        const db = getFirestore();
+        const getData = async () => {
+            const querySnapshot = await getDocs(collection(db, "users", userId, "habitDay"));
+            querySnapshot.forEach((docu) => {
+                console.log(docu.id, " => ", docu.data());
+            });
+        };
+        getData();
+    }, [userId]);
+
     return (
         <div>
             <h3>
@@ -26,7 +37,15 @@ const HabitsCalendar = (props) => {
                 <thead>
                     <tr>
                         <th>Date</th>
-                        {Object.entries(habitsWithPoints).map(([key, value]) => <th>{key}<br/>({value} pts)</th>)}
+                        {Object.entries(habitsWithPoints).map(([key, value]) => (
+                            <th>
+                                {key}
+                                <br />
+                                (
+                                {value}
+                                pts)
+                            </th>
+                        ))}
                     </tr>
                 </thead>
                 <tbody>
