@@ -3,8 +3,13 @@ import { useEffect, useState } from "react";
 import HabitCalendarRow from "./HabitCalendarRow";
 
 const HabitsCalendar = (props) => {
-    const { closeHabitsCalendar, habitsCalendarInfo, userId } = props;
+    const { closeHabitsCalendar, userId } = props;
     const [habitsWithPoints, setHabitsWithPoints] = useState({});
+    const [habitDays, setHabitDays] = useState({});
+    const [habitDaysCombined, setHabitDaysCombined] = useState({});
+
+    // fetch habits with points
+
     useEffect(() => {
         const db = getFirestore();
         const docRef = doc(db, "users", userId);
@@ -17,16 +22,45 @@ const HabitsCalendar = (props) => {
         getData();
     }, [userId]);
 
+    // fetch days with habits => habitDays
+
     useEffect(() => {
+        const habitsTemp = {};
         const db = getFirestore();
-        const getData = async () => {
+        (async () => {
             const querySnapshot = await getDocs(collection(db, "users", userId, "habitDay"));
             querySnapshot.forEach((docu) => {
                 console.log(docu.id, " => ", docu.data());
+                habitsTemp[docu.id] = docu.data();
             });
-        };
-        getData();
+            setHabitDays(habitsTemp);
+        })();
     }, [userId]);
+
+    // setting combined data for rows
+
+    useEffect(() => {
+        if (habitDays !== {} && habitsWithPoints !== {}) {
+            const tempObj = {};
+            console.log("start combined data");
+            console.log("habitdays:", habitDays);
+            console.log("habitsWithPoints", habitsWithPoints);
+            Object.keys(habitDays).forEach((date) => {
+                console.log(date);
+                tempObj[date] = {};
+                Object.entries(habitDays[date]).forEach(([name, occurence]) => {
+                    console.log("this is date and name", date, name, occurence);
+                    tempObj[date][name] = {
+                        occurence,
+                        points: habitsWithPoints[name],
+                    };
+                });
+            });
+            console.log("temp object", tempObj);
+            setHabitDaysCombined(tempObj);
+        }
+    }, [habitDays, habitsWithPoints]);
+
 
     return (
         <div>
@@ -49,7 +83,7 @@ const HabitsCalendar = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(habitsCalendarInfo).map((key) => <HabitCalendarRow habitDayDate={key} habitsAndPoints={habitsCalendarInfo[key]} />)}
+                    {Object.keys(habitDaysCombined).map((date) => <HabitCalendarRow habitDayDate={date} habitDaysCombined={habitDaysCombined[date]} />)}
                 </tbody>
             </table>
             <button type="button" onClick={closeHabitsCalendar}>Back</button>
