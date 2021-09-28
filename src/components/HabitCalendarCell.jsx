@@ -1,5 +1,5 @@
 const HabitCalendarCell = (props) => {
-    const { habit, points, occurence } = props;
+    const { habit, points, totalPoints, occurence, plusPoint, minusPoint } = props;
     return (
         <td>
             {habit}
@@ -8,9 +8,13 @@ const HabitCalendarCell = (props) => {
             {points}
             pts.)
             <br />
-            {occurence}
+            {Number.isNaN(occurence) ? "Unknown" : occurence}
             *
             {points}
+            =
+            {totalPoints}
+            <button type="button" onClick={plusPoint}>Plus</button>
+            <button type="button" onClick={minusPoint}>Minus</button>
         </td>
     );
 };
