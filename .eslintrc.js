@@ -33,5 +33,6 @@ module.exports = {
     "object-curly-newline": ["error", {
       ObjectPattern: { multiline: true },
     }],
+    "react/jsx-indent-props": [2, 4],
   },
 };

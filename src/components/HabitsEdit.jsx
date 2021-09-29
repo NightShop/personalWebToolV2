@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-    doc, onSnapshot, getFirestore, setDoc, deleteField,
-} from "firebase/firestore";
+import { doc, onSnapshot, getFirestore, setDoc, deleteField } from "firebase/firestore";
 import HabitsInfoHeader from "./HabitsInfoHeader";
 import HabitsInfoRow from "./HabitsInfoRow";
 import HabitAddPopup from "./HabitAddPopup";
@@ -18,8 +16,10 @@ const HabitsEdit = (props) => {
     useEffect(() => {
         const unsub = onSnapshot(doc(db, "users", userId), (docum) => {
             const userHabitInfo = docum.data();
-            setHabitsInfo(userHabitInfo.habits);
-            console.log("got data: ", userHabitInfo.habits);
+            if (userHabitInfo) {
+                setHabitsInfo(userHabitInfo.habits);
+                console.log("got data: ", userHabitInfo.habits);
+            }
         });
         return () => unsub();
     }, [db, userId]);
@@ -58,27 +58,24 @@ const HabitsEdit = (props) => {
                         .sort((a, b) => a.toUpperCase() > b.toUpperCase())
                         .map((key) => (
                             <HabitsInfoRow
-                              openPopup={openUpdatePopup}
-                              resetTemp={resetTemp}
-                              deleteHabit={deleteHabit}
-                              habitInfo={[key, habitsInfo[key]]}
+                                openPopup={openUpdatePopup}
+                                resetTemp={resetTemp}
+                                deleteHabit={deleteHabit}
+                                habitInfo={[key, habitsInfo[key]]}
                             />
                         ))}
                 </tbody>
             </table>
             <button type="button" onClick={() => setAddHabitPopupOpened(!addHabitPopupOpened)}>Add new habit</button>
-            {
-                addHabitPopupOpened
-                && (
+            { addHabitPopupOpened && (
                     <HabitAddPopup
-                      userId={userId}
-                      habitToModifyPoints={habitToModifyPoints}
-                      habitToModify={habitToModify}
-                      closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)}
-                      resetTemp={resetTemp}
+                        userId={userId}
+                        habitToModifyPoints={habitToModifyPoints}
+                        habitToModify={habitToModify}
+                        closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)}
+                        resetTemp={resetTemp}
                     />
-                )
-            }
+                )}
             <button type="button" onClick={closeHabitsEdit}>Back</button>
         </div>
     );

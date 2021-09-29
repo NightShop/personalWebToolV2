@@ -1,7 +1,35 @@
-const GratefulnessDiary = () => {
+import { getFirestore, setDoc, collection, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import GratefulnessNewDay from "./GratefulnessNewDay";
+import GratefulnessDay from "./GratefulnessDay";
+
+const GratefulnessDiary = (props) => {
+    const { userId } = props;
+    const [showAddNewDay, setShowAddNewDay] = useState(false);
+    const [gratefulnessDays, setGratefulnessDays] = useState({});
+    const db = getFirestore();
+
+
+    useEffect(() => {
+        const unsub = onSnapshot(collection(db, "users", userId, "gratefulnessDays"), (doc) => {
+            console.log(doc.docs.map((docu) => docu.data()));
+            const tempObj = {};
+            doc.forEach(document => {
+                tempObj[document.id] = document.data();
+            });
+            console.log(tempObj);
+            setGratefulnessDays(tempObj);
+        });
+
+        return () => unsub();
+    }, [db, userId]);
+
     return (
         <div>
             <h1>This is gratefulness diary</h1>
+            <button type="button" onClick={() => setShowAddNewDay(!showAddNewDay)}>Add new</button>
+            {showAddNewDay && <GratefulnessNewDay userId={userId} />}
+            
         </div>
     );
 };

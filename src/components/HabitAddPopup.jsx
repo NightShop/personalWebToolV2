@@ -4,9 +4,7 @@ import {
 } from "firebase/firestore";
 
 const HabitAddPopup = (props) => {
-    const {
-        closePopup, habitToModify, habitToModifyPoints, resetTemp,
-    } = props;
+    const { closePopup, habitToModify, habitToModifyPoints, resetTemp } = props;
 
     const [habitName, setHabitName] = useState(habitToModify);
     const [habitPoints, setHabitPoints] = useState(habitToModifyPoints);

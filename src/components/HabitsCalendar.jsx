@@ -90,8 +90,8 @@ const HabitsCalendar = (props) => {
         console.log(date, habit, points, totalPoints);
         const pointsFinal = parseInt(points, 10) + parseInt(totalPoints, 10);
         setDoc(doc(db, "users", userId, "habitDay", date), {
-                [habit]: pointsFinal,
-            },
+            [habit]: pointsFinal,
+        },
             {
                 merge: true,
             });
@@ -129,12 +129,12 @@ const HabitsCalendar = (props) => {
                         return new Date(bYYYY, bMM - 1, bDD) - new Date(aYYYY, aMM - 1, aDD);
                     }).map((date) => (
                         <HabitCalendarRow
-                          key={uniqid()}
-                          habitDayDate={date}
-                          deleteHabitDay={deleteHabitDay}
-                          habitDaysCombined={habitDaysCombined[date]}
-                          plusPoint={plusPoint}
-                          minusPoint={minusPoint}
+                            key={uniqid()}
+                            habitDayDate={date}
+                            deleteHabitDay={deleteHabitDay}
+                            habitDaysCombined={habitDaysCombined[date]}
+                            plusPoint={plusPoint}
+                            minusPoint={minusPoint}
                         />
                     ))}
                 </tbody>

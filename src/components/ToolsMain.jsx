@@ -59,7 +59,7 @@ const ToolsMain = () => {
                         <button type="button" onClick={() => setActiveSection("habitsTracker")}>Habits Tracker</button>
                     </nav>
                     {((activeSection === "habitsTracker")) ? <HabitsTracker userId={user.uid} /> : null}
-                    {((activeSection === "gratefulnessDiary")) ? <GratefulnessDiary /> : null}
+                    {((activeSection === "gratefulnessDiary")) ? <GratefulnessDiary userId={user.uid} /> : null}
                 </div>
             )}
         </div>
