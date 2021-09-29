@@ -9,11 +9,10 @@ const GratefulnessDiary = (props) => {
     const [gratefulnessDays, setGratefulnessDays] = useState({});
     const db = getFirestore();
 
-
     useEffect(() => {
-        const unsub = onSnapshot(collection(db, "users", userId, "gratefulnessDays"), (doc) => {
+        const unsub = onSnapshot(collection(db, "users", userId, "gratefulnessDays"), (docu) => {
             const tempObj = {};
-            doc.forEach(document => {
+            docu.forEach((document) => {
                 tempObj[document.id] = document.data();
             });
             console.log("tempObj ", tempObj);
@@ -32,7 +31,9 @@ const GratefulnessDiary = (props) => {
             <h1>This is gratefulness diary</h1>
             <button type="button" onClick={() => setShowAddNewDay(!showAddNewDay)}>Add new</button>
             {showAddNewDay && <GratefulnessNewDay userId={userId} />}
-            {(gratefulnessDays !== {}) ? Object.entries(gratefulnessDays).map(([date, dayData]) => <GratefulnessDay deleteEntry={deleteEntry} date={date} dayData={dayData} />) : null}
+            {(gratefulnessDays !== {})
+            ? Object.entries(gratefulnessDays).map(([date, dayData]) => <GratefulnessDay deleteEntry={deleteEntry} date={date} dayData={dayData} />)
+            : null}
         </div>
     );
 };
