@@ -38,8 +38,6 @@ const ToolsMain = () => {
         if (user) {
             setShowSignUp(false);
         }
-        console.log("user is set");
-        console.log(user);
     }, [user]);
 
     return (
