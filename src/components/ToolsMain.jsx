@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import HabitsTracker from "./HabitsTracker";
 import GratefulnessDiary from "./GratefulnessDiary";
+import BlogEditor from "./BlogEditor";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
@@ -10,6 +11,7 @@ const ToolsMain = () => {
     const [activeSection, setActiveSection] = useState("");
     const [showSignUp, setShowSignUp] = useState(false);
     const [showSignIn, setShowSignIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const auth = getAuth();
     const [user] = useAuthState(auth);
@@ -37,6 +39,9 @@ const ToolsMain = () => {
     useEffect(() => {
         if (user) {
             setShowSignUp(false);
+            if (user.uid === "gQ7oSXs6IWXGTdBo55iMY5pvhO52") {
+                setIsAdmin(true);
+            }
         }
     }, [user]);
 
@@ -55,9 +60,11 @@ const ToolsMain = () => {
                     <nav>
                         <button type="button" onClick={() => setActiveSection("gratefulnessDiary")}>Gratefulnes</button>
                         <button type="button" onClick={() => setActiveSection("habitsTracker")}>Habits Tracker</button>
+                        {isAdmin && (<button type="button" onClick={() => setActiveSection("blogEditor")}>Blog Editor</button>) }
                     </nav>
                     {((activeSection === "habitsTracker")) ? <HabitsTracker userId={user.uid} /> : null}
                     {((activeSection === "gratefulnessDiary")) ? <GratefulnessDiary userId={user.uid} /> : null}
+                    {(activeSection === "blogEditor") ? <BlogEditor /> : null}
                 </div>
             )}
         </div>
