@@ -23,8 +23,20 @@ const helperFunction = (() => {
         });
         return lines.join("");
     };
+
+    const parseDate = (date) => {
+        const dateArr = date.split("-");
+        console.log(dateArr);
+        const YYYY = dateArr[0];
+        const MM = dateArr[1];
+        const DD = dateArr[2];
+        const newDate = DD.concat("-", MM, "-", YYYY);
+        return newDate;
+    };
+
     return {
         parseBlogPost,
+        parseDate,
     };
 })();
 

@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
-import helperFunction from "../assets/helperFunctions";
-import BlogPost from "./BlogPost";
+import { useState } from "react";
 
-const BlogNewPostEditor = () => {
+const BlogNewPostEditor = (props) => {
+    const { getBlogData, closeNewPostEditor } = props;
+
     const [date, setDate] = useState("");
     const [title, setTitle] = useState("");
     const [main, setMain] = useState("");
-    const [parsedMain, setParsedMain] = useState("");
 
-    useEffect(() => {
-        setParsedMain(helperFunction.parseBlogPost(main));
-    }, [date, title, main]);
+    const submitPostToServer = (event) => {
+        event.preventDefault();
+        getBlogData(date, title, main);
+        closeNewPostEditor();
+    };
 
     return (
         <div>
             <h3>New Post</h3>
-            <form>
+            <form onSubmit={submitPostToServer}>
                 <label>
                     Date:
                     <input type="date" value={date} onChange={(ev) => setDate(ev.target.value)} />
@@ -28,8 +29,8 @@ const BlogNewPostEditor = () => {
                     Main
                     <textarea type="text" value={main} onChange={(ev) => setMain(ev.target.value)} />
                 </label>
+                <input type="submit" value="add post" />
             </form>
-            <BlogPost parsedMain={parsedMain} />
         </div>
     );
 };

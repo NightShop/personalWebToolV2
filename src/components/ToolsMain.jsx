@@ -48,6 +48,7 @@ const ToolsMain = () => {
     return (
         <div>
             <h1>Welcome to the tools</h1>
+            <h2>{user && user.email}</h2>
             <h3>{user && user.uid}</h3>
             <button type="button" onClick={signInGoogleButton}>Sign in with google</button>
             <button type="button" onClick={() => setShowSignUp(!showSignUp)}>Sign up with email</button>
