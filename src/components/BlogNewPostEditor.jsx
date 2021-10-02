@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import helperFunction from "../assets/helperFunctions";
 
 const BlogNewPostEditor = (props) => {
-    const { getBlogData, closeNewPostEditor } = props;
+    const { getBlogData, closeNewPostEditor, dataToEdit, clearDataToEdit } = props;
 
     const [date, setDate] = useState("");
     const [title, setTitle] = useState("");
@@ -12,6 +13,18 @@ const BlogNewPostEditor = (props) => {
         getBlogData(date, title, main);
         closeNewPostEditor();
     };
+    // clean up;
+    useEffect(() => () => { clearDataToEdit(); }, [clearDataToEdit]);
+
+    useEffect(() => {
+        console.log("useeffect");
+        if (Object.keys(dataToEdit).length !== 0) {
+            const dateTemp = Object.keys(dataToEdit)[0];
+            setDate(helperFunction.parseDate(dateTemp));
+            setTitle(dataToEdit[dateTemp].title);
+            setMain(dataToEdit[dateTemp].main);
+        }
+    }, [dataToEdit]);
 
     return (
         <div>

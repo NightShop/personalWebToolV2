@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import GratefulnessSingleForm from "./GratefulnessSingleForm";
+import helperFunction from "../assets/helperFunctions";
 
 const GratefulnessNewDay = (props) => {
     const { userId } = props;
@@ -11,15 +12,6 @@ const GratefulnessNewDay = (props) => {
     const [entryFive, setEntryFive] = useState([]);
     const [date, setDate] = useState("");
 
-    const convertDate = (tempDate) => {
-        const dateArr = tempDate.split("-");
-        console.log(dateArr);
-        const YYYY = dateArr[0];
-        const MM = dateArr[1];
-        const DD = dateArr[2];
-        return DD.concat("-", MM, "-", YYYY);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const gratefulnessDay = {
@@ -29,13 +21,14 @@ const GratefulnessNewDay = (props) => {
             [entryFour.title]: entryFour.main,
             [entryFive.title]: entryFive.main,
         };
-        console.log("convert", convertDate(date));
+
+        const tempDate = helperFunction.stringifyDate(date);
 
         const db = getFirestore();
         (async () => {
-            console.log("date to enter setDoc: ", date);
+            console.log("date to enter setDoc: ", tempDate);
             console.log(gratefulnessDay);
-            await setDoc(doc(db, "users", userId, "gratefulnessDays", date), { ...gratefulnessDay });
+            await setDoc(doc(db, "users", userId, "gratefulnessDays", tempDate), { ...gratefulnessDay });
         })();
     };
 

@@ -24,9 +24,8 @@ const helperFunction = (() => {
         return lines.join("");
     };
 
-    const parseDate = (date) => {
+    const stringifyDate = (date) => {
         const dateArr = date.split("-");
-        console.log(dateArr);
         const YYYY = dateArr[0];
         const MM = dateArr[1];
         const DD = dateArr[2];
@@ -34,8 +33,18 @@ const helperFunction = (() => {
         return newDate;
     };
 
+    const parseDate = (string) => {
+        const dateArr = string.split("-");
+        const YYYY = dateArr[0];
+        const MM = dateArr[1];
+        const DD = dateArr[2];
+        const newDate = YYYY.concat("-", MM, "-", DD);
+        return newDate;
+    };
+
     return {
         parseBlogPost,
+        stringifyDate,
         parseDate,
     };
 })();
