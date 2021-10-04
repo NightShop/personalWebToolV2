@@ -7,11 +7,13 @@ const BlogPostList = (props) => {
         <div>
             {Object.keys(blogPostsData).map((key) => (
                 <BlogPost
+                    key={key}
                     editPost={editPost}
                     deletePost={deletePost}
-                    date={key}
+                    date={blogPostsData[key].date}
                     title={blogPostsData[key].title}
                     main={blogPostsData[key].main}
+                    id={key}
                 />
               ))}
         </div>

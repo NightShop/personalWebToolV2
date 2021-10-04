@@ -2,27 +2,27 @@ import { useEffect, useState } from "react";
 import helperFunction from "../assets/helperFunctions";
 
 const BlogNewPostEditor = (props) => {
-    const { getBlogData, closeNewPostEditor, dataToEdit, clearDataToEdit } = props;
+    const { getBlogData, closeNewPostEditor, dataToEdit } = props;
 
     const [date, setDate] = useState("");
     const [title, setTitle] = useState("");
     const [main, setMain] = useState("");
+    const [id, setId] = useState("");
 
     const submitPostToServer = (event) => {
         event.preventDefault();
-        getBlogData(date, title, main);
+        getBlogData(date, title, main, id);
         closeNewPostEditor();
     };
-    // clean up;
-    useEffect(() => () => { clearDataToEdit(); }, [clearDataToEdit]);
 
     useEffect(() => {
         console.log("useeffect");
         if (Object.keys(dataToEdit).length !== 0) {
-            const dateTemp = Object.keys(dataToEdit)[0];
-            setDate(helperFunction.parseDate(dateTemp));
-            setTitle(dataToEdit[dateTemp].title);
-            setMain(dataToEdit[dateTemp].main);
+            const tempId = Object.keys(dataToEdit)[0];
+            setId(tempId);
+            setDate(helperFunction.parseDate(dataToEdit[tempId].date));
+            setTitle(dataToEdit[tempId].title);
+            setMain(dataToEdit[tempId].main);
         }
     }, [dataToEdit]);
 
@@ -44,6 +44,7 @@ const BlogNewPostEditor = (props) => {
                 </label>
                 <input type="submit" value="add post" />
             </form>
+            <button type="button" onClick={closeNewPostEditor}>Close</button>
         </div>
     );
 };

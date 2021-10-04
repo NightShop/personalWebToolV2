@@ -1,5 +1,6 @@
 import { doc, getFirestore, onSnapshot, setDoc, collection, deleteDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import uniqid from "uniqid";
 import BlogNewPostEditor from "./BlogNewPostEditor";
 import BlogPostList from "./BlogPostList";
 
@@ -10,8 +11,10 @@ const BlogEditor = () => {
 
     const db = getFirestore();
 
-    const uploadBlogData = async (date, title, main) => {
-        await setDoc(doc(db, "blogPosts", date), {
+    const uploadBlogData = async (date, title, main, id) => {
+        const tempId = id !== "" ? id : uniqid();
+        await setDoc(doc(db, "blogPosts", tempId), {
+            date,
             title,
             main,
         });
@@ -23,14 +26,17 @@ const BlogEditor = () => {
         await deleteDoc(doc(db, "blogPosts", date));
     };
 
-    const editPost = (date) => {
+    const editPost = (id) => {
+        setDataToEdit({});
         setOpenNewPost(true);
-        setDataToEdit({ [date]: blogPosts[date] });
+        setDataToEdit({ [id]: blogPosts[id] });
     };
 
-    const clearDataToEdit = () => {
-        setDataToEdit({});
-    }
+    useEffect(() => {
+        if (openNewPost === false) {
+            setDataToEdit({});
+        }
+    }, [openNewPost]);
 
     useEffect(() => {
         const unsub = onSnapshot(collection(db, "blogPosts"), (snap) => {
@@ -46,11 +52,10 @@ const BlogEditor = () => {
     return (
         <div>
             <h2>Blog editor</h2>
-            <button type="button" onClick={() => setOpenNewPost(!openNewPost)}>New Post</button>
+            <button type="button" onClick={() => setOpenNewPost((prevState) => !prevState)}>New Post</button>
             {openNewPost
                 && (
                     <BlogNewPostEditor
-                        clearDataToEdit={clearDataToEdit}
                         dataToEdit={dataToEdit}
                         getBlogData={uploadBlogData}
                         closeNewPostEditor={() => setOpenNewPost(false)}
