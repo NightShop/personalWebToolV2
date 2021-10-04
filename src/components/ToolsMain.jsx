@@ -47,21 +47,21 @@ const ToolsMain = () => {
 
     return (
         <div>
-            <h1>Welcome to the tools</h1>
+            <h1 className="text-4xl">Welcome to the tools</h1>
             <h2>{user && user.email}</h2>
             <h3>{user && user.uid}</h3>
-            <button type="button" onClick={signInGoogleButton}>Sign in with google</button>
-            <button type="button" onClick={() => setShowSignUp(!showSignUp)}>Sign up with email</button>
-            <button type="button" onClick={() => setShowSignIn(!showSignIn)}>Sign in with email</button>
+            <button className="btn-test" type="button" onClick={signInGoogleButton}>Sign in with google</button>
+            <button className="btn-test" type="button" onClick={() => setShowSignUp(!showSignUp)}>Sign up with email</button>
+            <button className="btn-test" type="button" onClick={() => setShowSignIn(!showSignIn)}>Sign in with email</button>
             {showSignUp && <SignUp setShowSignUp={setShowSignUp} />}
             {showSignIn && <SignIn setShowSignIn={setShowSignIn} />}
-            {user && <button type="button" onClick={() => auth.signOut()}>Sign Out</button>}
+            {user && <button className="btn-test" type="button" onClick={() => auth.signOut()}>Sign Out</button>}
             {user && (
                 <div>
                     <nav>
-                        <button type="button" onClick={() => setActiveSection("gratefulnessDiary")}>Gratefulnes</button>
-                        <button type="button" onClick={() => setActiveSection("habitsTracker")}>Habits Tracker</button>
-                        {isAdmin && (<button type="button" onClick={() => setActiveSection("blogEditor")}>Blog Editor</button>) }
+                        <button className="btn-test" type="button" onClick={() => setActiveSection("gratefulnessDiary")}>Gratefulnes</button>
+                        <button className="btn-test" type="button" onClick={() => setActiveSection("habitsTracker")}>Habits Tracker</button>
+                        {isAdmin && (<button className="btn-test" type="button" onClick={() => setActiveSection("blogEditor")}>Blog Editor</button>) }
                     </nav>
                     {((activeSection === "habitsTracker")) ? <HabitsTracker userId={user.uid} /> : null}
                     {((activeSection === "gratefulnessDiary")) ? <GratefulnessDiary userId={user.uid} /> : null}

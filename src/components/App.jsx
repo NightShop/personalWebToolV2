@@ -30,7 +30,7 @@ const App = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             {activeSection === "tools" ? <ToolsMain /> : null}
             {activeSection === "blog" ? <BlogMain /> : null}
             {activeSection === "" ? <EntryNavigation activeSectionSetter={changeActiveSection} /> : null}
@@ -42,9 +42,9 @@ const EntryNavigation = (props) => {
     const { activeSectionSetter } = props;
 
     return (
-        <div className="entrYnavigation">
-            <button type="button" onClick={() => activeSectionSetter("blog")}>Blog</button>
-            <button type="button" onClick={() => activeSectionSetter("tools")}>Tools</button>
+        <div>
+            <button className="btn-test" type="button" onClick={() => activeSectionSetter("blog")}>Blog</button>
+            <button className="btn-test" type="button" onClick={() => activeSectionSetter("tools")}>Tools</button>
         </div>
     );
 };

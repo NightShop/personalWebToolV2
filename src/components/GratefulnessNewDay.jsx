@@ -10,8 +10,14 @@ const GratefulnessNewDay = (props) => {
     const [entryThree, setEntryThree] = useState([]);
     const [entryFour, setEntryFour] = useState([]);
     const [entryFive, setEntryFive] = useState([]);
-    const [date, setDate] = useState("");
 
+    const tempD = new Date();
+    const tempString = [
+        tempD.getFullYear(),
+        tempD.getMonth() + 1,
+        (tempD.getDate().toString().split("").length === 1) ? (`0${tempD.getDate()}`) : tempD.getDate(),
+    ].join("-");
+    const [date, setDate] = useState(tempString);
     const handleSubmit = (e) => {
         e.preventDefault();
         const gratefulnessDay = {
@@ -22,13 +28,17 @@ const GratefulnessNewDay = (props) => {
             [entryFive.title]: entryFive.main,
         };
 
+        const filteredGratefulnessDay = Object.keys(gratefulnessDay)
+            .filter((key) => (gratefulnessDay[key] !== ""))
+            .reduce((obj, key) => ({ ...obj, [key]: gratefulnessDay[key] }), {});
+        console.log("day: ", date);
         const tempDate = helperFunction.stringifyDate(date);
 
         const db = getFirestore();
         (async () => {
             console.log("date to enter setDoc: ", tempDate);
             console.log(gratefulnessDay);
-            await setDoc(doc(db, "users", userId, "gratefulnessDays", tempDate), { ...gratefulnessDay });
+            await setDoc(doc(db, "users", userId, "gratefulnessDays", tempDate), { ...filteredGratefulnessDay });
         })();
     };
 

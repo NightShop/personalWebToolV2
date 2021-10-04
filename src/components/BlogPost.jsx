@@ -7,9 +7,9 @@ const BlogPost = (props) => {
     const { main, title, date, deletePost, editPost, id } = props;
     const cleanedMain = DOMPurify.sanitize(parseBlogPost(main));
     return (
-        <div>
+        <div className="container">
             <h2>{title}</h2>
-            <button type="button" onClick={() => deletePost(id)}>Delete</button>
+            <button className="btn-test" type="button" onClick={() => deletePost(id)}>Delete</button>
             <button type="button" onClick={() => editPost(id)}>Edit</button>
             <h5>{stringifyDate(date)}</h5>
             <div dangerouslySetInnerHTML={{ __html: cleanedMain }} />

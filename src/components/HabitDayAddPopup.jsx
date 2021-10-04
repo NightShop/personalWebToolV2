@@ -2,7 +2,14 @@ import { useState } from "react";
 
 const HabitDayAddPopup = (props) => {
     const { createHabitDay } = props;
-    const [date, setDate] = useState("");
+
+    const tempD = new Date();
+    const tempString = [
+        tempD.getFullYear(),
+        tempD.getMonth() + 1,
+        (tempD.getDate().toString().split("").length === 1) ? (`0${tempD.getDate()}`) : tempD.getDate(),
+    ].join("-");
+    const [date, setDate] = useState(tempString);
 
     const submitDate = (e) => {
         e.preventDefault();
