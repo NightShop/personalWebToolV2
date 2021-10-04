@@ -2,7 +2,6 @@ const path = require("path");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let mode = "development";
 const pluginsArr = [
@@ -62,8 +61,6 @@ module.exports = {
     },
 
     plugins: pluginsArr,
-
-    devtool: "source-map",
 
     devServer: {
         static: path.resolve(__dirname, "dist"),
