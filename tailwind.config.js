@@ -17,6 +17,10 @@ module.exports = {
       fontFamily: {
           custom: ["Roboto", "Helvetica Neue", "Arial", "sans-serif"],
       },
+      right: {
+        "9/10": "90%",
+        "1/10": "10%",
+      },
     },
   },
   variants: {
