@@ -3,6 +3,7 @@ import { doc, onSnapshot, getFirestore, setDoc, deleteField } from "firebase/fir
 import HabitsInfoHeader from "./HabitsInfoHeader";
 import HabitsInfoRow from "./HabitsInfoRow";
 import HabitAddPopup from "./HabitAddPopup";
+import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
 
 const HabitsEdit = (props) => {
     const { userId, closeHabitsEdit } = props;
@@ -10,6 +11,8 @@ const HabitsEdit = (props) => {
     const [addHabitPopupOpened, setAddHabitPopupOpened] = useState(false);
     const [habitToModify, setHabitToModify] = useState("");
     const [habitToModifyPoints, setHabitToModifyPoints] = useState("");
+    const [habitToDelete, setHabitToDelete] = useState("");
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
 
     const db = getFirestore();
 
@@ -24,7 +27,12 @@ const HabitsEdit = (props) => {
         return () => unsub();
     }, [db, userId]);
 
-    const deleteHabit = async (habitToDelete) => {
+    const deleteHabit = (habit) => {
+        setShowDeletePopup(true);
+        setHabitToDelete(habit);
+    };
+
+    const finalDeleteHabit = async () => {
         if (habitToDelete !== "") {
             await setDoc(doc(db, "users", userId), {
                 habits: {
@@ -32,6 +40,8 @@ const HabitsEdit = (props) => {
                 },
             }, { merge: true });
         }
+        setHabitToDelete("");
+        setShowDeletePopup(false);
     };
 
     const openUpdatePopup = (habit, points) => {
@@ -51,6 +61,16 @@ const HabitsEdit = (props) => {
                 user:
                 {userId}
             </h1>
+            {showDeletePopup
+                && (
+                    <DeleteConfirmationPopup
+                        confirmDeletion={() => finalDeleteHabit()}
+                        rejectDeletion={() => {
+                            setHabitToDelete("");
+                            setShowDeletePopup(false);
+                        }}
+                    />
+                )}
             <table>
                 <HabitsInfoHeader />
                 <tbody>
@@ -67,15 +87,15 @@ const HabitsEdit = (props) => {
                 </tbody>
             </table>
             <button type="button" onClick={() => setAddHabitPopupOpened(!addHabitPopupOpened)}>Add new habit</button>
-            { addHabitPopupOpened && (
-                    <HabitAddPopup
-                        userId={userId}
-                        habitToModifyPoints={habitToModifyPoints}
-                        habitToModify={habitToModify}
-                        closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)}
-                        resetTemp={resetTemp}
-                    />
-                )}
+            {addHabitPopupOpened && (
+                <HabitAddPopup
+                    userId={userId}
+                    habitToModifyPoints={habitToModifyPoints}
+                    habitToModify={habitToModify}
+                    closePopup={() => setAddHabitPopupOpened(!addHabitPopupOpened)}
+                    resetTemp={resetTemp}
+                />
+            )}
             <button type="button" onClick={closeHabitsEdit}>Back</button>
         </div>
     );

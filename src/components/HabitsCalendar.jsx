@@ -3,6 +3,7 @@ import { getFirestore, doc, getDoc, collection, setDoc, onSnapshot, deleteDoc } 
 import { useEffect, useState } from "react";
 import HabitCalendarRow from "./HabitCalendarRow";
 import HabitDayAddPopup from "./HabitDayAddPopup";
+import WarningPopUp from "./WarningPopUp";
 
 const HabitsCalendar = (props) => {
     const { closeHabitsCalendar, userId } = props;
@@ -10,6 +11,7 @@ const HabitsCalendar = (props) => {
     const [habitDays, setHabitDays] = useState({});
     const [habitDaysCombined, setHabitDaysCombined] = useState({});
     const [showHabitDayAddPopup, setShowHabitDayAddPopup] = useState(false);
+    const [showWarningPopup, setShowWarningPopup] = useState(false);
 
     const db = getFirestore();
 
@@ -70,7 +72,10 @@ const HabitsCalendar = (props) => {
     }, [habitDays, habitsWithPoints]);
 
     const newHabitDay = (date) => {
-        console.log(habitsWithPoints);
+        if (Object.keys(habitDays).some((key) => key === date)) {
+            setShowWarningPopup(true);
+            return;
+        }
         const tempObj = {};
         Object.keys(habitsWithPoints).forEach((key) => {
             tempObj[key] = 0;
@@ -103,6 +108,7 @@ const HabitsCalendar = (props) => {
 
     return (
         <div>
+            {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} />}
             {showHabitDayAddPopup && <HabitDayAddPopup createHabitDay={newHabitDay} />}
             <h3>
                 Habits Calendar
