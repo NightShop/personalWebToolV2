@@ -21,7 +21,6 @@ const HabitsEdit = (props) => {
             const userHabitInfo = docum.data();
             if (userHabitInfo) {
                 setHabitsInfo(userHabitInfo.habits);
-                console.log("got data: ", userHabitInfo.habits);
             }
         });
         return () => unsub();
@@ -69,6 +68,7 @@ const HabitsEdit = (props) => {
                             setHabitToDelete("");
                             setShowDeletePopup(false);
                         }}
+                        message={`Delete habit: ${habitToDelete}`}
                     />
                 )}
             <table>

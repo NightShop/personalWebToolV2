@@ -4,22 +4,28 @@ import GratefulnessSingleForm from "./GratefulnessSingleForm";
 import helperFunction from "../assets/helperFunctions";
 
 const GratefulnessNewDay = (props) => {
-    const { userId } = props;
+    const { userId, usedDates, showWarningPopup, closeNewPopup } = props;
     const [entryOne, setEntryOne] = useState([]);
     const [entryTwo, setEntryTwo] = useState([]);
     const [entryThree, setEntryThree] = useState([]);
     const [entryFour, setEntryFour] = useState([]);
     const [entryFive, setEntryFive] = useState([]);
+    const [date, setDate] = useState(helperFunction.todayDateString());
 
-    const tempD = new Date();
-    const tempString = [
-        tempD.getFullYear(),
-        tempD.getMonth() + 1,
-        (tempD.getDate().toString().split("").length === 1) ? (`0${tempD.getDate()}`) : tempD.getDate(),
-    ].join("-");
-    const [date, setDate] = useState(tempString);
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (date === "") {
+            showWarningPopup("empty date does not go through");
+            return;
+        }
+
+        const tempDate = helperFunction.stringifyDate(date);
+        if (usedDates.some((usedDate) => usedDate === tempDate)) {
+            showWarningPopup("Date is already used");
+            return;
+        }
+
         const gratefulnessDay = {
             [entryOne.title]: entryOne.main,
             [entryTwo.title]: entryTwo.main,
@@ -31,15 +37,11 @@ const GratefulnessNewDay = (props) => {
         const filteredGratefulnessDay = Object.keys(gratefulnessDay)
             .filter((key) => (gratefulnessDay[key] !== ""))
             .reduce((obj, key) => ({ ...obj, [key]: gratefulnessDay[key] }), {});
-        console.log("day: ", date);
-        const tempDate = helperFunction.stringifyDate(date);
-
         const db = getFirestore();
         (async () => {
-            console.log("date to enter setDoc: ", tempDate);
-            console.log(gratefulnessDay);
             await setDoc(doc(db, "users", userId, "gratefulnessDays", tempDate), { ...filteredGratefulnessDay });
         })();
+        closeNewPopup();
     };
 
     return (

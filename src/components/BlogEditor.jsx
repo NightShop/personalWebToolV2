@@ -3,26 +3,41 @@ import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import BlogNewPostEditor from "./BlogNewPostEditor";
 import BlogPostList from "./BlogPostList";
+import WarningPopUp from "./WarningPopUp";
+import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
+import helperFunction from "../assets/helperFunctions";
 
 const BlogEditor = () => {
     const [openNewPost, setOpenNewPost] = useState(false);
     const [blogPosts, setBlogPosts] = useState({});
     const [dataToEdit, setDataToEdit] = useState({});
+    const [showWarningPopup, setShowWarningPopup] = useState(false);
+    const [showDeletionPopup, setShowDeletionPopup] = useState(false);
+    const [postToDelete, setPostToDelete] = useState("");
 
     const db = getFirestore();
 
     const uploadBlogData = async (date, title, main, id) => {
-        const tempId = id !== "" ? id : uniqid();
-        await setDoc(doc(db, "blogPosts", tempId), {
-            date,
-            title,
-            main,
-        });
-        setDataToEdit({});
+        if (date !== "") {
+            const tempId = id !== "" ? id : uniqid();
+            await setDoc(doc(db, "blogPosts", tempId), {
+                date,
+                title,
+                main,
+            });
+            setDataToEdit({});
+            setShowWarningPopup(false);
+            return;
+        }
+        setShowWarningPopup(true);
     };
 
-    const deletePost = async (date) => {
-        console.log("im in delete post", date);
+    const deletePost = (date) => {
+        setShowDeletionPopup(true);
+        setPostToDelete(date);
+    };
+
+    const deletePostFinal = async (date) => {
         await deleteDoc(doc(db, "blogPosts", date));
     };
 
@@ -53,6 +68,21 @@ const BlogEditor = () => {
         <div>
             <h2>Blog editor</h2>
             <button type="button" onClick={() => setOpenNewPost((prevState) => !prevState)}>New Post</button>
+            {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} message="You have to enter a date" />}
+            {showDeletionPopup
+                && (
+                    <DeleteConfirmationPopup
+                        message={`Delete "${blogPosts[postToDelete].title}" from ${helperFunction.stringifyDate(blogPosts[postToDelete].date)}"`}
+                        confirmDeletion={() => {
+                            deletePostFinal(postToDelete);
+                            setShowDeletionPopup(false);
+                        }}
+                        rejectDeletion={() => {
+                            setPostToDelete("");
+                            setShowDeletionPopup(false);
+                        }}
+                    />
+                )}
             {openNewPost
                 && (
                     <BlogNewPostEditor

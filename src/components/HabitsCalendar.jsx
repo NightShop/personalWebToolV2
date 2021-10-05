@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import HabitCalendarRow from "./HabitCalendarRow";
 import HabitDayAddPopup from "./HabitDayAddPopup";
 import WarningPopUp from "./WarningPopUp";
+import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
 
 const HabitsCalendar = (props) => {
     const { closeHabitsCalendar, userId } = props;
@@ -12,6 +13,9 @@ const HabitsCalendar = (props) => {
     const [habitDaysCombined, setHabitDaysCombined] = useState({});
     const [showHabitDayAddPopup, setShowHabitDayAddPopup] = useState(false);
     const [showWarningPopup, setShowWarningPopup] = useState(false);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [habitDateToDelete, setHabitDateToDelete] = useState("");
+    const [showWarningPopupNoDate, setShowWarningPopupNoDate] = useState(false);
 
     const db = getFirestore();
 
@@ -32,7 +36,6 @@ const HabitsCalendar = (props) => {
     useEffect(() => {
         const unsub = onSnapshot(collection(db, "users", userId, "habitDay"), (document) => {
             const habitsTemp = {};
-            console.log("new query", document.docs);
             document.forEach((docu) => {
                 habitsTemp[docu.id] = docu.data();
             });
@@ -54,7 +57,6 @@ const HabitsCalendar = (props) => {
     // setting combined data for rows
 
     useEffect(() => {
-        console.log("new habit days combined set up");
         if (habitDays !== {} && habitsWithPoints !== {}) {
             const tempObj = {};
             Object.keys(habitDays).forEach((date) => {
@@ -67,7 +69,6 @@ const HabitsCalendar = (props) => {
                 });
             });
             setHabitDaysCombined(tempObj);
-            console.log(tempObj, habitDays, habitsWithPoints);
         }
     }, [habitDays, habitsWithPoints]);
 
@@ -87,12 +88,20 @@ const HabitsCalendar = (props) => {
         })();
     };
 
-    const deleteHabitDay = async (date) => {
-        await deleteDoc(doc(db, "users", userId, "habitDay", date));
+    const deleteHabitDay = (date) => {
+        setShowDeleteConfirmation(true);
+        setHabitDateToDelete(date);
+    };
+
+    const deleteHabitDayFinal = async () => {
+        if (habitDateToDelete !== "") {
+            await deleteDoc(doc(db, "users", userId, "habitDay", habitDateToDelete));
+        }
+        setShowDeleteConfirmation(false);
+        setHabitDateToDelete("");
     };
 
     const plusPoint = (date, habit, points, totalPoints) => {
-        console.log(date, habit, points, totalPoints);
         const pointsFinal = parseInt(points, 10) + parseInt(totalPoints, 10);
         setDoc(doc(db, "users", userId, "habitDay", date), {
             [habit]: pointsFinal,
@@ -103,13 +112,31 @@ const HabitsCalendar = (props) => {
     };
 
     const minusPoint = (date, habit, points, totalPoints) => {
-        console.log(date, habit, points, totalPoints);
+        const pointsFinal = -parseInt(points, 10) + parseInt(totalPoints, 10);
+        setDoc(doc(db, "users", userId, "habitDay", date), {
+            [habit]: pointsFinal,
+        },
+            {
+                merge: true,
+            });
     };
 
     return (
         <div>
-            {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} />}
-            {showHabitDayAddPopup && <HabitDayAddPopup createHabitDay={newHabitDay} />}
+            {showDeleteConfirmation
+                && (
+                    <DeleteConfirmationPopup
+                        confirmDeletion={() => deleteHabitDayFinal()}
+                        rejectDeletion={() => {
+                            setHabitDateToDelete("");
+                            setShowDeleteConfirmation(false);
+                        }}
+                        message={`Do you realy want to delete entry from ${habitDateToDelete}`}
+                    />
+                )}
+            {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} message="Date already exist, choose new date" />}
+            {showWarningPopupNoDate && <WarningPopUp closePopup={() => setShowWarningPopupNoDate(false)} message="You Have to enter a date" />}
+            {showHabitDayAddPopup && <HabitDayAddPopup createHabitDay={newHabitDay} showWarningPopup={() => setShowWarningPopupNoDate} />}
             <h3>
                 Habits Calendar
             </h3>
@@ -118,7 +145,7 @@ const HabitsCalendar = (props) => {
                     <tr>
                         <th>Date</th>
                         {Object.entries(habitsWithPoints).map(([key, value]) => (
-                            <th>
+                            <th key={key}>
                                 {key}
                                 <br />
                                 (

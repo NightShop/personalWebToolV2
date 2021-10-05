@@ -1,25 +1,16 @@
 import { useState } from "react";
+import helperFunction from "../assets/helperFunctions";
 
 const HabitDayAddPopup = (props) => {
-    const { createHabitDay } = props;
-
-    const tempD = new Date();
-    const tempString = [
-        tempD.getFullYear(),
-        tempD.getMonth() + 1,
-        (tempD.getDate().toString().split("").length === 1) ? (`0${tempD.getDate()}`) : tempD.getDate(),
-    ].join("-");
-    const [date, setDate] = useState(tempString);
-
+    const { createHabitDay, showWarningPopup } = props;
+    const [date, setDate] = useState(helperFunction.todayDateString());
     const submitDate = (e) => {
         e.preventDefault();
-        const dateArr = date.split("-");
-        console.log(dateArr);
-        const YYYY = dateArr[0];
-        const MM = dateArr[1];
-        const DD = dateArr[2];
-        const newDate = DD.concat("-", MM, "-", YYYY);
-        createHabitDay(newDate);
+        if (date === "") {
+            showWarningPopup();
+            return;
+        }
+        createHabitDay(helperFunction.stringifyDate(date));
     };
     return (
         <div>

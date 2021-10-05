@@ -24,7 +24,6 @@ module.exports = {
     indent: ["off"],
     "react/jsx-indent": ["off"],
     "react/react-in-jsx-scope": ["off"],
-    "no-console": ["off"],
     "react/jsx-filename-extension": "off",
     "arrow-body-style": 1,
     "react/prop-types": 0,

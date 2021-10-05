@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import helperFunction from "../assets/helperFunctions";
 
 const BlogNewPostEditor = (props) => {
     const { getBlogData, closeNewPostEditor, dataToEdit } = props;
-
     const [date, setDate] = useState("");
     const [title, setTitle] = useState("");
     const [main, setMain] = useState("");
@@ -12,7 +10,9 @@ const BlogNewPostEditor = (props) => {
     const submitPostToServer = (event) => {
         event.preventDefault();
         getBlogData(date, title, main, id);
-        closeNewPostEditor();
+        if (date !== "") {
+            closeNewPostEditor();
+        }
     };
 
     useEffect(() => {
@@ -20,7 +20,8 @@ const BlogNewPostEditor = (props) => {
         if (Object.keys(dataToEdit).length !== 0) {
             const tempId = Object.keys(dataToEdit)[0];
             setId(tempId);
-            setDate(helperFunction.parseDate(dataToEdit[tempId].date));
+            console.log(dataToEdit[tempId].date);
+            setDate(dataToEdit[tempId].date);
             setTitle(dataToEdit[tempId].title);
             setMain(dataToEdit[tempId].main);
         }

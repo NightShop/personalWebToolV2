@@ -18,7 +18,7 @@ const BlogMain = () => {
     return (
         <div>
             <h1>Welcome to the blog</h1>
-            <BlogPostList blogPostsData={blogPosts} />
+            <BlogPostList blogPostsData={blogPosts} readOnly />
         </div>
     );
 };

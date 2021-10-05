@@ -1,3 +1,4 @@
+import uniqid from "uniqid";
 import GratefulnessEntry from "./GratefulnessEntry";
 
 const GratefulnessDay = (props) => {
@@ -7,7 +8,7 @@ const GratefulnessDay = (props) => {
             <h1 className="text-3xl">{date}</h1>
             <button type="button" className="btn-test" onClick={() => deleteEntry(date)}>Delete</button>
             <div className="flex flex-wrap justify-around">
-                {Object.entries(dayData).map(([title, main]) => <GratefulnessEntry title={title} main={main} />)}
+                {Object.entries(dayData).map(([title, main]) => <GratefulnessEntry key={uniqid()} title={title} main={main} />)}
             </div>
         </div>
     );

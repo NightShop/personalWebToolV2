@@ -9,7 +9,8 @@ const helperFunction = (() => {
                     times += 1;
                     i += 1;
                 }
-                return `<h${times}>${line.slice(times)}</h${times}>`;
+
+                return `<h${times} style="font-size: ${times / 2}rem">${line.slice(times)}</h${times}>`;
             }
             if (line.length === 0) {
                 return "<br/>";
@@ -47,11 +48,22 @@ const helperFunction = (() => {
         return new Date(dateArr[0], dateArr[1] - 1, dateArr[2]);
     };
 
+    const todayDateString = () => {
+        const tempD = new Date();
+        const tempString = [
+            tempD.getFullYear(),
+            tempD.getMonth() + 1,
+            (tempD.getDate().toString().split("").length === 1) ? (`0${tempD.getDate()}`) : tempD.getDate(),
+        ].join("-");
+        return tempString;
+    };
+
     return {
         parseBlogPost,
         stringifyDate,
         parseDate,
         newDateObject,
+        todayDateString,
     };
 })();
 

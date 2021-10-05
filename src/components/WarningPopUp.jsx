@@ -1,8 +1,8 @@
 const WarningPopUp = (props) => {
-    const { closePopup } = props;
+    const { closePopup, message } = props;
     return (
         <div className="bg-red-700">
-            <p>You already set Habit day at this date</p>
+            <p>{message}</p>
             <button type="button" onClick={closePopup}>Close</button>
         </div>
     );
