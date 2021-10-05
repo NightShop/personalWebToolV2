@@ -20,8 +20,7 @@ const firebaseConfig = {
 
 };
 
-const app = initializeApp(firebaseConfig);
-console.log("app initialized: ", app);
+initializeApp(firebaseConfig);
 
 const App = () => {
     const [activeSection, setActiveSection] = useState("");
@@ -30,7 +29,7 @@ const App = () => {
     };
 
     return (
-        <div className="container">
+        <div>
             {activeSection === "tools" ? <ToolsMain /> : null}
             {activeSection === "blog" ? <BlogMain /> : null}
             {activeSection === "" ? <EntryNavigation activeSectionSetter={changeActiveSection} /> : null}

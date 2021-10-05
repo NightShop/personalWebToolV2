@@ -16,8 +16,7 @@ const BlogMain = () => {
     }, [db]);
 
     return (
-        <div>
-            <h1>Welcome to the blog</h1>
+        <div className="font-custom border-t-8 border-bordo-light bg-gray-lightback">
             <BlogPostList blogPostsData={blogPosts} readOnly />
         </div>
     );
