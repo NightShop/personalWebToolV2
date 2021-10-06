@@ -41,9 +41,9 @@ const EntryNavigation = (props) => {
     const { activeSectionSetter } = props;
 
     return (
-        <div>
-            <button className="btn-test" type="button" onClick={() => activeSectionSetter("blog")}>Blog</button>
-            <button className="btn-test" type="button" onClick={() => activeSectionSetter("tools")}>Tools</button>
+        <div className="flex">
+            <button className="hover:bg-bordo-dark hover:text-gray-400 text-white tracking-widest text-6xl font-medium w-1/2 h-screen bg-bordo-light" type="button" onClick={() => activeSectionSetter("blog")}>Blog</button>
+            <button className="hover:bg-gray-200 hover:text-gray-400 tracking-widest text-6xl font-medium w-1/2 h-screen" type="button" onClick={() => activeSectionSetter("tools")}>Tools</button>
         </div>
     );
 };
