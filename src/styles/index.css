@@ -4,6 +4,6 @@
 
 @layer components {
     .btn-test {
-        @apply text-yellow-50 bg-yellow-800 m-1 p-2 rounded-md border-4 border-yellow-400;
+        @apply bg-rink-light font-bold p-2 hover:text-white m-4;
     }
 }

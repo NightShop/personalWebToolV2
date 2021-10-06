@@ -29,7 +29,7 @@ const App = () => {
     };
 
     return (
-        <div>
+        <div className="h-full">
             {activeSection === "tools" ? <ToolsMain /> : null}
             {activeSection === "blog" ? <BlogMain /> : null}
             {activeSection === "" ? <EntryNavigation activeSectionSetter={changeActiveSection} /> : null}

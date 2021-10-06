@@ -16,6 +16,10 @@ module.exports = {
         gray: {
           lightback: "#f6fbfe",
         },
+        rink: {
+          light: "#fd4367",
+          dark: "#c22140",
+        },
       },
       fontFamily: {
           custom: ["Roboto", "Helvetica Neue", "Arial", "sans-serif"],
