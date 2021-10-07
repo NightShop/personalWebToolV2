@@ -20,6 +20,7 @@ const ToolsMain = () => {
     const signInGoogleButton = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
+            // eslint-disable-next-line no-unused-vars
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 // const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -110,14 +111,23 @@ const ToolsMain = () => {
                         <div className="h-full mt-10 -mb-6">
                             <nav className="flex p-5">
                                 <button
-                                    className={`flex-grow border-gray-500 bg-rink-light font-bold mx-2 border-4 p-3 ${activeSection === "gratefulnessDiary" ? "bg-rink-dark" : ""}`}
+                                    className={
+                                        `flex-grow border-gray-500 
+                                        bg-rink-light font-bold mx-2 border-4 p-3
+                                        ${activeSection === "gratefulnessDiary" ? "bg-rink-dark" : ""}`
+                                    }
                                     type="button"
                                     onClick={() => setActiveSection("gratefulnessDiary")}
                                 >
                                     GRATEFULNESS
                                 </button>
                                 <button
-                                    className={`flex-grow border-gray-500 bg-rink-light font-bold mx-2 border-4 p-3 ${activeSection === "habitsTracker" ? "bg-rink-dark" : ""}`}
+                                    className={
+                                        `flex-grow border-gray-500
+                                        bg-rink-light font-bold mx-2
+                                        border-4 p-3 
+                                        ${activeSection === "habitsTracker" ? "bg-rink-dark" : ""}`
+                                    }
                                     type="button"
                                     onClick={() => setActiveSection("habitsTracker")}
                                 >
@@ -126,7 +136,11 @@ const ToolsMain = () => {
                                 {isAdmin
                                     && (
                                         <button
-                                            className={`flex-grow border-gray-500 bg-rink-light font-bold mx-2 border-4 p-3 ${activeSection === "blogEditor" ? "bg-rink-dark" : ""}`}
+                                            className={
+                                                `flex-grow border-gray-500 
+                                                bg-rink-light font-bold mx-2 border-4
+                                                p-3 ${activeSection === "blogEditor" ? "bg-rink-dark" : ""}`
+                                            }
                                             type="button"
                                             onClick={() => setActiveSection("blogEditor")}
                                         >
