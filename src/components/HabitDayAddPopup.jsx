@@ -13,13 +13,13 @@ const HabitDayAddPopup = (props) => {
         createHabitDay(helperFunction.stringifyDate(date));
     };
     return (
-        <div>
+        <div className="bg-green-400 my-4">
             <form onSubmit={submitDate}>
-                <label>
-                    Date
-                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                <label className="font-bold">
+                    DATE:
+                    <input className="m-4 font-bold" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                 </label>
-                <input type="submit" value="add day" />
+                <input className="btn-test" type="submit" value="add day" />
             </form>
         </div>
     );

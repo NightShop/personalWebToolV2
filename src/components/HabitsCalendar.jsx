@@ -137,10 +137,7 @@ const HabitsCalendar = (props) => {
             {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} message="Date already exist, choose new date" />}
             {showWarningPopupNoDate && <WarningPopUp closePopup={() => setShowWarningPopupNoDate(false)} message="You Have to enter a date" />}
             {showHabitDayAddPopup && <HabitDayAddPopup createHabitDay={newHabitDay} showWarningPopup={() => setShowWarningPopupNoDate} />}
-            <h3>
-                Habits Calendar
-            </h3>
-            <table>
+            {/* 
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -153,27 +150,26 @@ const HabitsCalendar = (props) => {
                                 pts)
                             </th>
                         ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {Object.keys(habitDaysCombined).sort((a, b) => {
-                        const [aDD, aMM, aYYYY] = a.split("-");
-                        const [bDD, bMM, bYYYY] = b.split("-");
-                        return new Date(bYYYY, bMM - 1, bDD) - new Date(aYYYY, aMM - 1, aDD);
-                    }).map((date) => (
-                        <HabitCalendarRow
-                            key={uniqid()}
-                            habitDayDate={date}
-                            deleteHabitDay={deleteHabitDay}
-                            habitDaysCombined={habitDaysCombined[date]}
-                            plusPoint={plusPoint}
-                            minusPoint={minusPoint}
-                        />
-                    ))}
-                </tbody>
-            </table>
-            <button type="button" onClick={() => setShowHabitDayAddPopup((prevState) => !prevState)}>Add new</button>
-            <button type="button" onClick={closeHabitsCalendar}>Back</button>
+                        </tr>
+                    </thead> */}
+            <button className="btn-test" type="button" onClick={() => setShowHabitDayAddPopup((prevState) => !prevState)}>Add new</button>
+            <div>
+                {Object.keys(habitDaysCombined).sort((a, b) => {
+                    const [aDD, aMM, aYYYY] = a.split("-");
+                    const [bDD, bMM, bYYYY] = b.split("-");
+                    return new Date(bYYYY, bMM - 1, bDD) - new Date(aYYYY, aMM - 1, aDD);
+                }).map((date) => (
+                    <HabitCalendarRow
+                        key={uniqid()}
+                        habitDayDate={date}
+                        deleteHabitDay={deleteHabitDay}
+                        habitDaysCombined={habitDaysCombined[date]}
+                        plusPoint={plusPoint}
+                        minusPoint={minusPoint}
+                    />
+                ))}
+            </div>
+            <button className="btn-test" type="button" onClick={closeHabitsCalendar}>Back</button>
         </div>
     );
 };

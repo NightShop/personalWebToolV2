@@ -28,6 +28,12 @@ module.exports = {
         "9/10": "90%",
         "1/10": "10%",
       },
+      height: {
+        "1/50": "2%",
+      },
+      letterSpacing: {
+        widestest: "0.5em",
+      },
     },
   },
   variants: {

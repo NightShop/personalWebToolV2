@@ -38,31 +38,24 @@ const HabitAddPopup = (props) => {
     };
 
     return (
-        <div className="block fixed w-96 h-96 top-0 left-0 bg-green-200"
-        /* 
-            width: "300px",
-            height: "300px",
-            position: "fixed",
-            display: "block",
-            border: "solid 1px white",
-            backgroundColor: "gray",
-            left: "35vw",
-            top: "10vw",
-            boxShadow: "rgba(0, 0, 0, 0.9) 0px 5px 15px", */
+        <div
+            className="block fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96
+        bg-green-400 border-rink-dark rounded-md border-8 shadow-2xl"
         >
-            <h3>Add Habit</h3>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Habit title:
-                    <input type="text" value={habitName} onChange={(event) => setHabitName(event.target.value)} />
+            <h3 className="font-bold m-3">ADD HABIT</h3>
+            <form onSubmit={handleSubmit} className="flex flex-wrap">
+                <label className="m-4 font-bold border-b-2 flex justify-between border-black">
+                    TITLE :
+                    <input className="ml-4 pl-2 w-2/3" type="text" value={habitName} onChange={(event) => setHabitName(event.target.value)} />
                 </label>
-                <label>
-                    Points:
-                    <input type="number" value={habitPoints} onChange={(event) => setHabitPoints(event.target.value)} />
+                <label className="font-bold border-b-2 flex justify-between border-black m-4">
+                    POINTS :
+                    <input className="ml-2 pl-2 w-2/3" type="number" value={habitPoints} onChange={(event) => setHabitPoints(event.target.value)} />
                 </label>
-                <input type="submit" value="Submit" />
+                <br />
+                <input className="btn-test mx-auto" type="submit" value="Submit" />
             </form>
-            <button type="button" onClick={closePopup}>Back</button>
+            <button className="btn-test" type="button" onClick={closePopup}>Back</button>
         </div>
     );
 };
