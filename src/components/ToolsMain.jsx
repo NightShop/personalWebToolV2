@@ -49,10 +49,9 @@ const ToolsMain = () => {
 
     return (
         <div className="h-full">
-            <div className="mx-auto w-2/3 h-1/2 box-border">
+            <div className="mx-auto md:w-2/3 h-1/2 box-border">
                 <img
                     className="bg-green-400 shadow-2xl p-10 w-full"
-                    // eslint-disable-next-line jsx-a11y/alt-text
                     src="https://tinyurl.com/yf48em65"
                     alt="optimizer-logo"
                 />
@@ -70,7 +69,7 @@ const ToolsMain = () => {
                 </button>
                 {showSignInBar
                     && (
-                        <div className="flex my-2 text-black">
+                        <div className="flex my-2 text-black flex-wrap">
                             <button
                                 className="btn-test border-r-4 border-l-4 px-4 border-black flex-grow"
                                 type="button"
@@ -109,10 +108,10 @@ const ToolsMain = () => {
                 {
                     user && (
                         <div className="h-full mt-10 -mb-6">
-                            <nav className="flex p-5">
+                            <nav className="flex p-5 flex-wrap">
                                 <button
                                     className={
-                                        `flex-grow border-gray-500 
+                                        `w-full sm:w-auto sm:flex-grow border-gray-500 
                                         bg-rink-light font-bold mx-2 border-4 p-3
                                         ${activeSection === "gratefulnessDiary" ? "bg-rink-dark" : ""}`
                                     }
@@ -123,7 +122,7 @@ const ToolsMain = () => {
                                 </button>
                                 <button
                                     className={
-                                        `flex-grow border-gray-500
+                                        `w-full sm:w-auto sm:flex-grow border-gray-500
                                         bg-rink-light font-bold mx-2
                                         border-4 p-3 
                                         ${activeSection === "habitsTracker" ? "bg-rink-dark" : ""}`
@@ -137,7 +136,7 @@ const ToolsMain = () => {
                                     && (
                                         <button
                                             className={
-                                                `flex-grow border-gray-500 
+                                                `w-full sm:w-auto sm:flex-grow border-gray-500 
                                                 bg-rink-light font-bold mx-2 border-4
                                                 p-3 ${activeSection === "blogEditor" ? "bg-rink-dark" : ""}`
                                             }

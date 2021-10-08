@@ -56,10 +56,6 @@ const HabitsEdit = (props) => {
 
     return (
         <div>
-            <h1>
-                user:
-                {userId}
-            </h1>
             {showDeletePopup
                 && (
                     <DeleteConfirmationPopup
@@ -86,7 +82,7 @@ const HabitsEdit = (props) => {
                         ))}
                 </tbody>
             </table>
-            <button type="button" onClick={() => setAddHabitPopupOpened(!addHabitPopupOpened)}>Add new habit</button>
+            <button className="btn-test" type="button" onClick={() => setAddHabitPopupOpened(!addHabitPopupOpened)}>ADD NEW</button>
             {addHabitPopupOpened && (
                 <HabitAddPopup
                     userId={userId}
@@ -96,7 +92,7 @@ const HabitsEdit = (props) => {
                     resetTemp={resetTemp}
                 />
             )}
-            <button type="button" onClick={closeHabitsEdit}>Back</button>
+            <button className="btn-test" type="button" onClick={closeHabitsEdit}>BCK</button>
         </div>
     );
 };

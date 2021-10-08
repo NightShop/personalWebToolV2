@@ -43,8 +43,8 @@ const GratefulnessDiary = (props) => {
     };
 
     return (
-        <div className="mx-auto max-w-5xl text-center">
-            <h1 className="font-bold text-3xl mx-auto block">This is gratefulness diary</h1>
+        <div className="mx-auto max-w-5xl mt-10 text-center">
+            <h1 className="font-bold text-3xl mx-auto block underline">gratefulness is a practice</h1>
             {showDeletePopup
                 && (
                     <DeleteConfirmationPopup
@@ -57,7 +57,9 @@ const GratefulnessDiary = (props) => {
                     />
                 )}
             {showWarningPopup && <WarningPopUp message={showWarningPopup} closePopup={() => setShowWarningPopup("")} />}
-            <button className="btn-test" type="button" onClick={() => setShowAddNewDay(!showAddNewDay)}>Add new</button>
+            {!showAddNewDay
+            ? <button className="btn-test" type="button" onClick={() => setShowAddNewDay(!showAddNewDay)}>Add new</button>
+            : <button onClick={() => setShowAddNewDay(false)} type="button" className="btn-test">cancel</button>}
             {showAddNewDay && (
                 <GratefulnessNewDay
                     userId={userId}

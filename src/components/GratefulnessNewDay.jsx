@@ -47,16 +47,21 @@ const GratefulnessNewDay = (props) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Date
-                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                <label className="font-bold tracking-widest">
+                    ENTER DATE:
+                    <input
+                        className="font-bold tracking-widest border-2 p-1 m-3"
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
                 </label>
-                <GratefulnessSingleForm setEntry={setEntryOne} />
-                <GratefulnessSingleForm setEntry={setEntryTwo} />
-                <GratefulnessSingleForm setEntry={setEntryThree} />
-                <GratefulnessSingleForm setEntry={setEntryFour} />
-                <GratefulnessSingleForm setEntry={setEntryFive} />
-                <input type="submit" value="Submit" />
+                <GratefulnessSingleForm number="1" setEntry={setEntryOne} />
+                <GratefulnessSingleForm number="2" setEntry={setEntryTwo} />
+                <GratefulnessSingleForm number="3" setEntry={setEntryThree} />
+                <GratefulnessSingleForm number="4" setEntry={setEntryFour} />
+                <GratefulnessSingleForm number="5" setEntry={setEntryFive} />
+                <input type="submit" value="Submit" className="btn-test" />
             </form>
         </div>
     );
