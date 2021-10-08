@@ -38,7 +38,8 @@ const HabitAddPopup = (props) => {
     };
 
     return (
-        <div style={{
+        <div className="block fixed w-96 h-96 top-0 left-0 bg-green-200"
+        /* 
             width: "300px",
             height: "300px",
             position: "fixed",
@@ -47,8 +48,7 @@ const HabitAddPopup = (props) => {
             backgroundColor: "gray",
             left: "35vw",
             top: "10vw",
-            boxShadow: "rgba(0, 0, 0, 0.9) 0px 5px 15px",
-        }}
+            boxShadow: "rgba(0, 0, 0, 0.9) 0px 5px 15px", */
         >
             <h3>Add Habit</h3>
             <form onSubmit={handleSubmit}>

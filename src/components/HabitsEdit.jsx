@@ -55,7 +55,7 @@ const HabitsEdit = (props) => {
     };
 
     return (
-        <div>
+        <div className="mt-10">
             {showDeletePopup
                 && (
                     <DeleteConfirmationPopup
@@ -67,7 +67,7 @@ const HabitsEdit = (props) => {
                         message={`Delete habit: ${habitToDelete}`}
                     />
                 )}
-            <table>
+            <table className="w-full">
                 <HabitsInfoHeader />
                 <tbody>
                     {habitsInfo && Object.keys(habitsInfo)

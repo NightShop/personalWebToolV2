@@ -111,7 +111,7 @@ const ToolsMain = () => {
                             <nav className="flex p-5 flex-wrap">
                                 <button
                                     className={
-                                        `w-full sm:w-auto sm:flex-grow border-gray-500 
+                                        `hover:text-white w-full sm:w-auto sm:flex-grow border-gray-500 
                                         bg-rink-light font-bold mx-2 border-4 p-3
                                         ${activeSection === "gratefulnessDiary" ? "bg-rink-dark" : ""}`
                                     }
@@ -122,7 +122,7 @@ const ToolsMain = () => {
                                 </button>
                                 <button
                                     className={
-                                        `w-full sm:w-auto sm:flex-grow border-gray-500
+                                        `hover:text-white w-full sm:w-auto sm:flex-grow border-gray-500
                                         bg-rink-light font-bold mx-2
                                         border-4 p-3 
                                         ${activeSection === "habitsTracker" ? "bg-rink-dark" : ""}`
@@ -136,7 +136,7 @@ const ToolsMain = () => {
                                     && (
                                         <button
                                             className={
-                                                `w-full sm:w-auto sm:flex-grow border-gray-500 
+                                                `hover:text-white w-full sm:w-auto sm:flex-grow border-gray-500 
                                                 bg-rink-light font-bold mx-2 border-4
                                                 p-3 ${activeSection === "blogEditor" ? "bg-rink-dark" : ""}`
                                             }

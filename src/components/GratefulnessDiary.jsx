@@ -43,7 +43,7 @@ const GratefulnessDiary = (props) => {
     };
 
     return (
-        <div className="mx-auto max-w-5xl mt-10 text-center">
+        <div className="mx-auto max-w-5xl border-t-8 pt-20 border-gray-500 text-center">
             <h1 className="font-bold text-3xl mx-auto block underline">gratefulness is a practice</h1>
             {showDeletePopup
                 && (
