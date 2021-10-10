@@ -10,7 +10,7 @@ const helperFunction = (() => {
                     i += 1;
                 }
 
-                return `<h${times} style="font-size: ${times / 2}rem">${line.slice(times)}</h${times}>`;
+                return `<h1 style="font-size: ${times}rem">${line.slice(times)}</h1>`;
             }
             if (line.length === 0) {
                 return "<br/>";

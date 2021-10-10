@@ -2,12 +2,21 @@ const path = require("path");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 let mode = "development";
 const pluginsArr = [
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
         template: "./src/index.html",
+    }),
+    new CopyWebpackPlugin({
+        patterns: [
+            {
+                from: path.resolve(__dirname, "src/assets/favicon_io"),
+                to: path.resolve(__dirname, "dist"),
+            },
+        ],
     }),
 ];
 
@@ -44,8 +53,13 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/i,
+                test: /\.(png|jpe?g|gif|ico|svg)$/i,
                 type: "asset",
+                use: [
+                    {
+                        loader: "file-loader",
+                    },
+                ],
             },
             {
                 test: /\.jsx?$/,

@@ -65,9 +65,8 @@ const BlogEditor = () => {
     }, [db]);
 
     return (
-        <div>
-            <h2>Blog editor</h2>
-            <button type="button" onClick={() => setOpenNewPost((prevState) => !prevState)}>New Post</button>
+        <div className="w-full">
+            <button className="btn-test block mx-auto" type="button" onClick={() => setOpenNewPost((prevState) => !prevState)}>New Post</button>
             {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} message="You have to enter a date" />}
             {showDeletionPopup
                 && (

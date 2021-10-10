@@ -16,11 +16,9 @@ const BlogNewPostEditor = (props) => {
     };
 
     useEffect(() => {
-        console.log("useeffect");
         if (Object.keys(dataToEdit).length !== 0) {
             const tempId = Object.keys(dataToEdit)[0];
             setId(tempId);
-            console.log(dataToEdit[tempId].date);
             setDate(dataToEdit[tempId].date);
             setTitle(dataToEdit[tempId].title);
             setMain(dataToEdit[tempId].main);
@@ -28,24 +26,30 @@ const BlogNewPostEditor = (props) => {
     }, [dataToEdit]);
 
     return (
-        <div>
-            <h3>New Post</h3>
-            <form onSubmit={submitPostToServer}>
-                <label>
+        <div className="border-2 border-grey-400">
+            <h3 className="font-semibold text-2xl">New Post</h3>
+            <form className="flex-col flex" onSubmit={submitPostToServer}>
+                <label className="font-medium">
                     Date:
-                    <input type="date" value={date} onChange={(ev) => setDate(ev.target.value)} />
+                    <input className="border-2 m-3" type="date" value={date} onChange={(ev) => setDate(ev.target.value)} />
                 </label>
-                <label>
-                    Title
-                    <input type="text" value={title} onChange={(ev) => setTitle(ev.target.value)} />
+                <label className="font-medium">
+                    Title:
+                    <input className="border-2 m-3 w-2/3" type="text" value={title} onChange={(ev) => setTitle(ev.target.value)} />
                 </label>
-                <label>
-                    Main
-                    <textarea type="text" value={main} onChange={(ev) => setMain(ev.target.value)} />
+                <label className="font-medium">
+                    Main:
+                    <br />
+                    <textarea
+                        className="border-2 border-rink-light w-11/12 h-60 m-4"
+                        type="text"
+                        value={main}
+                        onChange={(ev) => setMain(ev.target.value)}
+                    />
                 </label>
-                <input type="submit" value="add post" />
+                <input type="submit" className="btn-test w-24 block mx-auto" value="add post" />
             </form>
-            <button type="button" onClick={closeNewPostEditor}>Close</button>
+            <button type="button" className="btn-test block mx-auto" onClick={closeNewPostEditor}>Close</button>
         </div>
     );
 };

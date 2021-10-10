@@ -11,7 +11,7 @@ const BlogPost = (props) => {
             <h5 className="text-gray-400">{stringifyDate(date)}</h5>
             <h2 className="text-5xl font-medium my-4">{title}</h2>
             {!readOnly && <button className="btn-test" type="button" onClick={() => deletePost(id)}>Delete</button>}
-            {!readOnly && <button type="button" onClick={() => editPost(id)}>Edit</button>}
+            {!readOnly && <button className="btn-test" type="button" onClick={() => editPost(id)}>Edit</button>}
             <div dangerouslySetInnerHTML={{ __html: cleanedMain }} />
         </div>
     );
