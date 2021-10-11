@@ -16,8 +16,6 @@ const HabitCalendarRow = (props) => {
         divArray.push("1");
     }
     let color = "";
-    console.log(totalPoints);
-    console.log(parseInt(totalPoints) > 10);
     switch (true) {
         case totalPoints > 90:
             color = "animate-pulse bg-red-700";
@@ -52,11 +50,11 @@ const HabitCalendarRow = (props) => {
 
     return (
         <div className="border-white border-2 bg-green-400 mb-10">
-            <div className="text-white font-extrabold text-4xl w-full tracking-widestest my-6">
+            <div className="text-white font-extrabold text-4xl w-full tracking-wider lg:tracking-widestest my-6">
                 {habitDayDate}
             </div>
             <div className="flex">
-                <div className="w-4/6">
+                <div className="w-5/6 lg:w-4/6">
                     {Object.keys(habitDaysCombined).sort((a, b) => a > b).map((habit) => (
                         <HabitCalendarCell
                             key={uniqid()}
@@ -69,14 +67,13 @@ const HabitCalendarRow = (props) => {
                         />
                     ))}
                 </div>
-                <div className="m-2 bg-gray-300 flex flex-nowrap flex-col-reverse w-2/6">
+                <div className="m-2 bg-gray-300 flex flex-nowrap flex-col-reverse w-2/12 lg:w-2/6">
                     {
                         divArray && divArray.map(() => (
                             <div className={`h-1/50 w-full block box-border border-black border-2 ${color}`} />
                         ))
                     }
-                    Total:
-                    {totalPoints}
+                    <h1 className="font-bold">{totalPoints}</h1>
                 </div>
             </div>
             <div className="w-full">

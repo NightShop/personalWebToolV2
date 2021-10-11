@@ -137,7 +137,7 @@ const HabitsCalendar = (props) => {
             {showWarningPopup && <WarningPopUp closePopup={() => setShowWarningPopup(false)} message="Date already exist, choose new date" />}
             {showWarningPopupNoDate && <WarningPopUp closePopup={() => setShowWarningPopupNoDate(false)} message="You Have to enter a date" />}
             {showHabitDayAddPopup && <HabitDayAddPopup createHabitDay={newHabitDay} showWarningPopup={() => setShowWarningPopupNoDate} />}
-            {/* 
+            {/*
                 <thead>
                     <tr>
                         <th>Date</th>
