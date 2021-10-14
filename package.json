@@ -1,7 +1,6 @@
 {
   "name": "personalwebtoolv2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -58,5 +57,6 @@
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^3.0.4",
     "uniqid": "^5.4.0"
-  }
+  },
+  "description": ""
 }
