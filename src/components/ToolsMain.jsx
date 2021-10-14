@@ -7,7 +7,7 @@ import BlogEditor from "./BlogEditor";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
-const ToolsMain = () => {
+const ToolsMain = (props) => {
     const [activeSection, setActiveSection] = useState("");
     const [showSignUp, setShowSignUp] = useState(false);
     const [showSignIn, setShowSignIn] = useState(false);
@@ -16,6 +16,8 @@ const ToolsMain = () => {
 
     const auth = getAuth();
     const [user] = useAuthState(auth);
+
+    const { back } = props;
 
     const signInGoogleButton = () => {
         const provider = new GoogleAuthProvider();
@@ -65,7 +67,7 @@ const ToolsMain = () => {
                     type="button"
                     onClick={() => setShowSignInBar((prevState) => !prevState)}
                 >
-                    sign in
+                    {user ? "sign out" : "sign in"}
                 </button>
                 {showSignInBar
                     && (

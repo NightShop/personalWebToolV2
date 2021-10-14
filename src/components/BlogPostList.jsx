@@ -7,12 +7,16 @@ const BlogPostList = (props) => {
     return (
         <div className="max-w-2xl mx-10 md:mx-auto">
             <div className="font-bold my-8 w-full">
-                <span>night</span>
-                <span className="text-bordo-light">Shop</span>
+                <a href="https://github.com/NightShop">
+                    <span>night</span>
+                    <span className="text-bordo-light">Shop</span>
+                </a>
+                <a href="www.linkedin.com/in/boštjan-zupan-998377223">
                 <span className="float-right">
                     <span className="font-thin text-gray-400">written by: </span>
                     <span className="font-thin text-bordo-light">boštjan zupan</span>
                 </span>
+                </a>
             </div>
             <div className="relative">
                 <img
