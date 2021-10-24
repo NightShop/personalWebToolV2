@@ -7,7 +7,7 @@ import BlogEditor from "./BlogEditor";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
-const ToolsMain = (props) => {
+const ToolsMain = () => {
     const [activeSection, setActiveSection] = useState("");
     const [showSignUp, setShowSignUp] = useState(false);
     const [showSignIn, setShowSignIn] = useState(false);
@@ -16,8 +16,6 @@ const ToolsMain = (props) => {
 
     const auth = getAuth();
     const [user] = useAuthState(auth);
-
-    const { back } = props;
 
     const signInGoogleButton = () => {
         const provider = new GoogleAuthProvider();
@@ -57,17 +55,22 @@ const ToolsMain = (props) => {
                     src="https://tinyurl.com/yf48em65"
                     alt="optimizer-logo"
                 />
-                <h2 className="font-bold text-green-400 text-xs text-center tracking-widest">
-                    WELCOME,
-                    {" "}
-                    {user && (user.email).toUpperCase()}
-                </h2>
+                {
+                    user
+                    && (
+                        <h2 className="font-bold text-green-400 text-xs text-center tracking-widest">
+                            WELCOME,
+                            {" "}
+                            {user && (user.email).toUpperCase()}
+                        </h2>
+                    )
+                }
                 <button
-                    className="w-24 mx-auto block mt-10 h-24 bg-rink-light font-bold"
+                    className="w-52 mx-auto block mt-10 h-10 bg-rink-light font-bold"
                     type="button"
                     onClick={() => setShowSignInBar((prevState) => !prevState)}
                 >
-                    {user ? "sign out" : "sign in"}
+                    {!showSignInBar ? "Show Profile Options" : "Hide Profile Options"}
                 </button>
                 {showSignInBar
                     && (
@@ -105,16 +108,30 @@ const ToolsMain = (props) => {
                                 )}
                         </div>
                     )}
-                {showSignUp && <SignUp setShowSignUp={setShowSignUp} />}
-                {showSignIn && <SignIn setShowSignIn={setShowSignIn} />}
+                {showSignUp
+                    && (
+                        <SignUp
+                            setShowSignUp={setShowSignUp}
+                            closeProfileOptions={() => { setShowSignInBar(false); }}
+                            closeForm={() => setShowSignUp(false)}
+                        />
+                    )}
+                {showSignIn
+                    && (
+                        <SignIn
+                            setShowSignIn={setShowSignIn}
+                            closeProfileOptions={() => { setShowSignInBar(false); }}
+                            closeForm={() => setShowSignIn(false)}
+                        />
+                    )}
                 {
                     user && (
                         <div className="h-full mt-10 -mb-6">
-                            <nav className="flex p-5 flex-wrap">
+                            <nav className="flex p-5 flex-wrap -mx-4">
                                 <button
                                     className={
                                         `hover:text-white w-full sm:w-auto sm:flex-grow border-gray-500 
-                                        bg-rink-light font-bold mx-2 border-4 p-3
+                                        bg-rink-light font-bold m-2 border-4 p-3
                                         ${activeSection === "gratefulnessDiary" ? "bg-rink-dark" : ""}`
                                     }
                                     type="button"
@@ -125,7 +142,7 @@ const ToolsMain = (props) => {
                                 <button
                                     className={
                                         `hover:text-white w-full sm:w-auto sm:flex-grow border-gray-500
-                                        bg-rink-light font-bold mx-2
+                                        bg-rink-light font-bold m-2
                                         border-4 p-3 
                                         ${activeSection === "habitsTracker" ? "bg-rink-dark" : ""}`
                                     }
@@ -139,7 +156,7 @@ const ToolsMain = (props) => {
                                         <button
                                             className={
                                                 `hover:text-white w-full sm:w-auto sm:flex-grow border-gray-500 
-                                                bg-rink-light font-bold mx-2 border-4
+                                                bg-rink-light font-bold m-2 border-4
                                                 p-3 ${activeSection === "blogEditor" ? "bg-rink-dark" : ""}`
                                             }
                                             type="button"

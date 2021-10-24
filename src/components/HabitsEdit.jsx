@@ -92,7 +92,7 @@ const HabitsEdit = (props) => {
                     resetTemp={resetTemp}
                 />
             )}
-            <button className="btn-test" type="button" onClick={closeHabitsEdit}>BCK</button>
+            <button className="btn-test" type="button" onClick={closeHabitsEdit}>BACK</button>
         </div>
     );
 };
